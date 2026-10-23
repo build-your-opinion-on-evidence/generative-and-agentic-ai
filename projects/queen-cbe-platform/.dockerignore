@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+**/__pycache__
+**/*.pyc
+.venv
+venv
+.git
+shared
+infra/airflow/logs
+infra/airflow/plugins
+**/*.pdf
+**/*.pkl
+**/*.bin
+**/*.log

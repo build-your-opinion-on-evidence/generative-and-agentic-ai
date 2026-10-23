@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling>=1.17.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "queen_core"
+version = "0.1.0"
+description = "Core RAG + Queen orchestrator for CBE regulations (local, offline, FAISS + Qwen via Ollama)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Proprietary" }
+
+# You can keep dependencies minimal here because services already install them.
+# If you prefer, you can move heavy deps (faiss, sentence-transformers, ollama) here.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest", "black", "ruff"]
+
+[project.urls]
+homepage = "https://github.com/build-your-opinion-on-evidence/generative-and-agentic-ai/tree/main/projects/queen-cbe-platform"
+repository = "https://github.com/build-your-opinion-on-evidence/generative-and-agentic-ai"
+
+[tool.hatch.build.targets.wheel]
+packages = ["queen_core"]
+

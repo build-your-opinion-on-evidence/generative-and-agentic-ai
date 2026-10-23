@@ -9,6 +9,7 @@ Generative models, LLMs, retrieval, agent orchestration, memory, and tool use.
 Projects live under `projects/`, with one directory per research project.
 
 - [Enterprise Agentic Orchestration](projects/enterprise-agentic-orchestration/README.md): imported implementation snapshot with Airflow, Kafka, and agent services. See [source provenance](projects/enterprise-agentic-orchestration/IMPORT.md).
+- [Queen CBE Platform](projects/queen-cbe-platform/README.md): imported local RAG prototype with FAISS, Ollama, FastAPI/JWT, and Airflow. See [source provenance and validation limits](projects/queen-cbe-platform/IMPORT.md).
 
 Start by copying [the project template](projects/_template/README.md) into `projects/<project-id>-<short-name>/`.
 
@@ -31,3 +32,4 @@ Create these directories as the project gains content. Each project manages its 
 Follow the [shared methodology](https://github.com/build-your-opinion-on-evidence/evidence-hub/blob/main/METHODOLOGY.md). Record deviations from source papers, report unsuccessful runs, and link conclusions to saved evidence.
 
 Register published projects in the [central catalog](https://github.com/build-your-opinion-on-evidence/evidence-hub/blob/main/PROJECTS.md).
+

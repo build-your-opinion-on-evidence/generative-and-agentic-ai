@@ -1,0 +1,114 @@
+version: "3.9"
+
+services:
+  # =========================
+  # Ollama LLM runtime
+  # =========================
+  ollama:
+    image: ollama/ollama:latest
+    container_name: queen-ollama
+    restart: unless-stopped
+    networks:
+      - queen-net
+    volumes:
+      - ollama_data:/root/.ollama
+    runtime: nvidia
+    environment:
+      NVIDIA_VISIBLE_DEVICES: "all"
+      NVIDIA_DRIVER_CAPABILITIES: "compute,utility"
+    # ports:
+    #   - "11434:11434"
+
+  # =========================
+  # Queen RAG service (black box)
+  # =========================
+  rag-service:
+    image: queen-cbe-rag-service:latest
+    container_name: queen-cbe-rag-service
+    restart: unless-stopped
+    depends_on:
+      - ollama
+    networks:
+      - queen-net
+    environment:
+      AUTH_JWT_SECRET: "${AUTH_JWT_SECRET:?Set AUTH_JWT_SECRET in .env}"
+      QUEEN_EMBED_DEVICE: "cuda"
+      OLLAMA_HOST: "http://ollama:11434"
+      NVIDIA_VISIBLE_DEVICES: "all"
+      NVIDIA_DRIVER_CAPABILITIES: "compute,utility"
+      # queen_core defaults to /app, which matches this container layout
+      QUEEN_BASE_DIR: "/app"
+    volumes:
+      - ./shared:/app/shared
+    ports:
+      - "8002:8002"
+    runtime: nvidia
+
+  # =========================
+  # NGINX gateway
+  # =========================
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: queen-nginx
+    restart: unless-stopped
+    depends_on:
+      - rag-service
+    networks:
+      - queen-net
+    ports:
+      - "8080:80"
+    volumes:
+      - ./infra/nginx/queen.conf:/etc/nginx/conf.d/default.conf:ro
+
+  # =========================
+  # Airflow (doc ingestion + indexing)
+  # =========================
+  airflow:
+    build:
+      context: .
+      dockerfile: infra/airflow/Dockerfile
+    container_name: queen-airflow
+    restart: unless-stopped
+    depends_on:
+      - rag-service
+    networks:
+      - queen-net
+    environment:
+      AIRFLOW_ADMIN_PASSWORD: "${AIRFLOW_ADMIN_PASSWORD:?Set AIRFLOW_ADMIN_PASSWORD in .env}"
+      AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+      AIRFLOW__CORE__EXECUTOR: "SequentialExecutor"
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: "sqlite:////opt/airflow/airflow.db"
+      AIRFLOW__WEBSERVER__RBAC: "True"
+      PYTHONPATH: "/opt/airflow:/opt/airflow/core:/opt/airflow/core/queen_core:${PYTHONPATH}"
+      QUEEN_BASE_DIR: "/opt/airflow"
+      QUEEN_EMBED_DEVICE: "cpu"
+    volumes:
+      - ./infra/airflow/dags:/opt/airflow/dags
+      - ./infra/airflow/logs:/opt/airflow/logs
+      - ./infra/airflow/plugins:/opt/airflow/plugins
+      - ./shared:/opt/airflow/shared
+      - ./core/queen_core:/opt/airflow/core/queen_core
+    ports:
+      - "8081:8080"
+    command:
+      - bash
+      - -ec
+      - |
+        airflow db upgrade
+        airflow users create \
+          --username admin \
+          --password "$$AIRFLOW_ADMIN_PASSWORD" \
+          --firstname Admin \
+          --lastname User \
+          --role Admin \
+          --email admin@example.invalid || true
+        airflow webserver &
+        exec airflow scheduler
+
+networks:
+  queen-net:
+    driver: bridge
+
+volumes:
+  ollama_data:
+

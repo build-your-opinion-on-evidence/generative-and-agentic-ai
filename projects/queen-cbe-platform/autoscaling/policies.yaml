@@ -1,0 +1,4 @@
+services:
+  rag_service:
+    min_replicas: 1
+    max_replicas: 4

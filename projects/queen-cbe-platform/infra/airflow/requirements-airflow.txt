@@ -1,0 +1,14 @@
+apache-airflow-providers-http
+pypdf
+requests
+python-dotenv
+faiss-cpu
+transformers
+huggingface-hub
+numpy
+scipy
+scikit-learn
+tqdm
+Pillow
+ollama
+
