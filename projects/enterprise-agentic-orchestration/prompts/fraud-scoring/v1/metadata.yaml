@@ -1,0 +1,10 @@
+agent_id: fraud-scoring-agent
+prompt_version: v1
+model_env: OPENAI_MODEL
+temperature: 0
+max_output_tokens: 1200
+required_tools:
+  - get_customer_profile
+  - get_transaction_history
+  - get_devices
+output_schema: output.schema.json

@@ -6,7 +6,9 @@ Generative models, LLMs, retrieval, agent orchestration, memory, and tool use.
 
 ## Projects
 
-Projects live under `projects/`, with one directory per research project. No completed projects have been added yet.
+Projects live under `projects/`, with one directory per research project.
+
+- [Enterprise Agentic Orchestration](projects/enterprise-agentic-orchestration/README.md): imported implementation snapshot with Airflow, Kafka, and agent services. See [source provenance](projects/enterprise-agentic-orchestration/IMPORT.md).
 
 Start by copying [the project template](projects/_template/README.md) into `projects/<project-id>-<short-name>/`.
 

@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["customer_id", "task_id", "customer_data"],
+  "properties": {
+    "customer_id": {"type": "string"},
+    "task_id": {"type": "string"},
+    "customer_data": {
+      "type": "object",
+      "properties": {
+        "customer_id": {"type": "string"},
+        "full_name": {"type": "string"},
+        "risk_segment": {"type": "string"},
+        "home_country": {"type": "string"},
+        "phone_number": {"type": "string"},
+        "phone_changed_at": {"type": ["string", "null"]},
+        "created_at": {"type": "string"}
+      }
+    },
+    "accounts": {"type": "array"},
+    "recent_signals": {"type": "object"}
+  }
+}

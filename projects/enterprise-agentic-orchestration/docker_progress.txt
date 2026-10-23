@@ -1,0 +1,30 @@
+#100 [policy-engine] resolving provenance for metadata file
+#100 DONE 0.0s
+
+#101 [policy-engine] exporting to image
+#101 exporting layers 3.9s done
+#101 exporting manifest sha256:72bda3eb8f22dc889fa0cbda79c17d9020fb5c3a3b1d8cefab72ac3c755fdbc4 done
+#101 exporting config sha256:59abe3c9fa6d0a36d83cb60e5cafeb500d1ad8e1c08b2ac3d081e7a7833c0010 done
+#101 exporting attestation manifest sha256:f9fb3a67f9b265ff7e278ca79d922339e76c4a2d1341c5e8208fe642ac1364e2 done
+#101 exporting manifest list sha256:436b9333e2d433ee9c5b4da579503ef6158e7ebe860c46fd7259aa9406c74f09 done
+#101 naming to docker.io/library/enterprise-agentic-orchestration-demo-policy-engine:latest done
+#101 unpacking to docker.io/library/enterprise-agentic-orchestration-demo-policy-engine:latest 1.4s done
+#101 DONE 5.2s
+
+#65 [integration-orchestrator 6/7] RUN pip install --no-cache-dir -r /app/requirements.txt
+#65 104.8    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.9/6.9 MB 1.2 MB/s eta 0:00:00
+#65 105.1 Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+#65 105.2 Downloading httptools-0.8.0-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (518 kB)
+#65 105.7 Downloading idna-3.18-py3-none-any.whl (65 kB)
+#65 106.0 Downloading importlib_metadata-7.1.0-py3-none-any.whl (24 kB)
+#65 106.2 Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+#65 106.8 Downloading orjson-3.11.9-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (132 kB)
+#65 108.0 Downloading python_dotenv-1.2.2-py3-none-any.whl (22 kB)
+#65 108.6 Downloading python_multipart-0.0.32-py3-none-any.whl (30 kB)
+#65 108.9 Downloading pyyaml-6.0.3-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (775 kB)
+#65 109.7    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 775.1/775.1 kB 863.5 kB/s eta 0:00:00
+#65 109.9 Downloading starlette-0.37.2-py3-none-any.whl (71 kB)
+#65 112.6 Downloading anyio-4.14.2-py3-none-any.whl (125 kB)
+#65 113.0 Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+#65 113.9 Downloading ujson-5.13.0-cp312-cp312-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl (58 kB)
+#65 114.4 Downloading uvloop-0.22.1-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (4.3 MB)

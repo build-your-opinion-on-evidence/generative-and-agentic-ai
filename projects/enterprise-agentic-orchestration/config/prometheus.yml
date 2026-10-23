@@ -1,0 +1,78 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'otel-collector'
+    static_configs:
+      - targets: ['otel-collector:8889']
+
+  - job_name: 'fake-banking-api'
+    static_configs:
+      - targets: ['fake-banking-api:8001']
+    metrics_path: /metrics
+
+  - job_name: 'task-manager'
+    static_configs:
+      - targets: ['task-manager:8002']
+    metrics_path: /metrics
+
+  - job_name: 'integration-orchestrator'
+    static_configs:
+      - targets: ['integration-orchestrator:8003']
+    metrics_path: /metrics
+
+  - job_name: 'strategy-router'
+    static_configs:
+      - targets: ['strategy-router:8004']
+    metrics_path: /metrics
+
+  - job_name: 'react-orchestrator'
+    static_configs:
+      - targets: ['react-orchestrator:8005']
+    metrics_path: /metrics
+
+  - job_name: 'agent-discovery'
+    static_configs:
+      - targets: ['agent-discovery:8006']
+    metrics_path: /metrics
+
+  - job_name: 'customer-profile-agent'
+    static_configs:
+      - targets: ['customer-profile-agent:8010']
+    metrics_path: /metrics
+
+  - job_name: 'transaction-history-agent'
+    static_configs:
+      - targets: ['transaction-history-agent:8011']
+    metrics_path: /metrics
+
+  - job_name: 'device-risk-agent'
+    static_configs:
+      - targets: ['device-risk-agent:8012']
+    metrics_path: /metrics
+
+  - job_name: 'fraud-scoring-agent'
+    static_configs:
+      - targets: ['fraud-scoring-agent:8013']
+    metrics_path: /metrics
+
+  - job_name: 'card-control-agent'
+    static_configs:
+      - targets: ['card-control-agent:8014']
+    metrics_path: /metrics
+
+  - job_name: 'notification-agent'
+    static_configs:
+      - targets: ['notification-agent:8015']
+    metrics_path: /metrics
+
+  - job_name: 'policy-engine'
+    static_configs:
+      - targets: ['policy-engine:8020']
+    metrics_path: /metrics
+
+  - job_name: 'approval-service'
+    static_configs:
+      - targets: ['approval-service:8021']
+    metrics_path: /metrics

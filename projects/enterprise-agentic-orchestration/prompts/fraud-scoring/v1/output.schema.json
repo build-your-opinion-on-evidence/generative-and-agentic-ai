@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["score", "findings", "recommended_actions", "confidence"],
+  "properties": {
+    "score": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"]
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["finding_type", "description", "evidence", "weight"],
+        "properties": {
+          "finding_type": {
+            "type": "string",
+            "enum": ["TRANSACTION_ANOMALY", "LOCATION_MISMATCH", "DEVICE_ANOMALY", "BEHAVIOR_CHANGE", "ACCOUNT_TAKEOVER_SIGNAL"]
+          },
+          "description": {"type": "string"},
+          "evidence": {"type": "string"},
+          "weight": {"type": "integer", "minimum": 1, "maximum": 10}
+        }
+      }
+    },
+    "recommended_actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["action_type", "urgency"],
+        "properties": {
+          "action_type": {
+            "type": "string",
+            "enum": ["FREEZE_CARD", "BLOCK_TRANSACTION", "NOTIFY_CUSTOMER", "ESCALATE_TO_ANALYST", "MONITOR"]
+          },
+          "urgency": {
+            "type": "string",
+            "enum": ["IMMEDIATE", "HIGH", "MEDIUM", "LOW"]
+          },
+          "rationale": {"type": "string"}
+        }
+      }
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "summary": {"type": "string"}
+  }
+}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enterprise Agentic Orchestration</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="app-header">
+    <div class="brand-container">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+          <polyline points="2 17 12 22 22 17"></polyline>
+          <polyline points="2 12 12 17 22 12"></polyline>
+        </svg>
+      </div>
+      <div class="brand-title">
+        <h1>Enterprise Agentic Orchestrator</h1>
+        <p>Dual-Engine Pipeline: Deterministic DAGs & Dynamic AI Agents</p>
+      </div>
+    </div>
+    <div class="status-pills">
+      <div class="status-badge pulse-emerald"><span class="status-dot"></span> Airflow Connected</div>
+      <div class="status-badge pulse-purple"><span class="status-dot"></span> ReAct GPT-4o Active</div>
+      <div class="status-badge pulse-cyan"><span class="status-dot"></span> Policy Engine Live</div>
+    </div>
+    <div style="display: flex; gap: 10px; margin-left: 20px;">
+      <a href="http://localhost:8080" target="_blank" class="btn btn-secondary" style="text-decoration: none; padding: 5px 10px; font-size: 0.8rem; background: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 4px;">Airflow UI</a>
+      <a href="http://localhost:8090" target="_blank" class="btn btn-secondary" style="text-decoration: none; padding: 5px 10px; font-size: 0.8rem; background: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 4px;">Kafka UI</a>
+      <a href="http://localhost:3000/d/pipeline-dashboard/pipeline-orchestration-dashboard" target="_blank" class="btn btn-secondary" style="text-decoration: none; padding: 5px 10px; font-size: 0.8rem; background: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 4px;">Grafana Pipeline Dashboard</a>
+    </div>
+  </header>
+
+  <main class="dashboard-container">
+
+    <!-- Master Control Banner -->
+    <section class="scenario-banner">
+      <div class="banner-content">
+        <h2>End-to-End Orchestration: Fraud vs. Legitimate Activity Analysis</h2>
+        <p>
+          Observe the routing and execution of two distinct scenarios. 
+          <strong>Scenario A (Legitimate Activity)</strong> is routed to a deterministic Airflow DAG due to known, safe parameters. 
+          <strong>Scenario B (Fraud)</strong> triggers multi-signal ambiguity, routing it to the ReAct Multi-Agent loop for deep investigation.
+        </p>
+      </div>
+      <div class="banner-action" style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <button class="btn btn-primary btn-glow" onclick="runGrandMasterDemo('fraud')" style="background-color: var(--accent-rose); border-color: var(--accent-rose);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          EXECUTE FRAUD SCENARIOS
+        </button>
+        <button class="btn btn-primary btn-glow" onclick="runGrandMasterDemo('legit')" style="background-color: var(--accent-emerald); border-color: var(--accent-emerald);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          EXECUTE LEGITIMATE SCENARIOS
+        </button>
+        <button class="btn btn-primary btn-glow" onclick="runGrandMasterDemo('random')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          EXECUTE RANDOM SCENARIOS
+        </button>
+        <div id="master-status-tag" class="status-tag">Ready to execute.</div>
+      </div>
+    </section>
+
+    <div class="grid-2col">
+
+      <!-- LEFT COLUMN: UNFRAUD (DAG) -->
+      <div class="glass-panel panel-unfraud">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <div class="icon-box icon-emerald">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            </div>
+            <div>
+              <h3>Scenario A: Deterministic Pipeline (DAG)</h3>
+              <span class="engine-tag engine-dag">ROUTED TO: AIRFLOW DAG</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-context-box">
+          <div class="context-title">📥 Incoming Event: High-Value Transaction</div>
+          <div class="context-details">Large single transaction attempt.</div>
+          <div class="context-rule">Matched Router Rule: <code>R04-default-dag</code> &rarr; <code>known_fraud_containment_dag</code></div>
+        </div>
+
+        <div class="timeline-header">Deterministic Execution Timeline:</div>
+        <div id="dag-master-timeline" class="timeline-container">
+          <!-- Dynamically Animated DAG Task Cards -->
+        </div>
+
+        <div id="dag-final-outcome" class="outcome-box outcome-success hidden">
+          <div class="outcome-title">✓ POLICY DECISION: AUTO_ALLOW (UNFRAUD)</div>
+          <div class="outcome-desc">
+            Rule <code>rule-travel-itinerary-match</code> satisfied. Transaction processed seamlessly with zero friction.
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: FRAUD (REACT) -->
+      <div class="glass-panel panel-fraud">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <div class="icon-box icon-rose">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            </div>
+            <div>
+              <h3>Scenario B: Multi-Signal Event (ReAct)</h3>
+              <span class="engine-tag engine-react">ROUTED TO: REACT GPT-4o</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-context-box">
+          <div class="context-title">📥 Incoming Event: Ambiguous Activity Burst</div>
+          <div class="context-details">Signals: Phone Change + New Device Login + Transaction</div>
+          <div class="context-rule">Matched Router Rule: <code>R02-multi-signal-ambiguity</code> &rarr; <code>ReAct Agent Loop</code></div>
+        </div>
+
+        <div class="timeline-header">Dynamic Agent Reasoning & Conversation:</div>
+        <div id="react-master-transcript" class="transcript-container">
+          <!-- Dynamically Animated Chat Bubbles -->
+        </div>
+
+        <div id="react-final-outcome" class="outcome-box hidden">
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script src="app.js?v=2"></script>
+</body>
+</html>
