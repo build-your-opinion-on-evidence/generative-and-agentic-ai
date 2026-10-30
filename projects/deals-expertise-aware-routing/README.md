@@ -1,6 +1,6 @@
 # DEALS: Decentralized Expertise-Aware Routing Lab
 
-Status: **working prototype with small pilot runs.** The saved results below are pilot-scale (12–25 test cases, one seed) and do **not** support conclusions about the paper's claims yet.
+Status: **working prototype with pilot-scale evidence.** The main paired run covers MATH, BBH and MMLU-Pro with 25 test cases each (75 paired cases, exact McNemar p = 0.021). That supports a *direction*, not a full reproduction of the paper's claims.
 
 A local lab that implements DEALS-style decentralized routing between LLM agents and compares it with a centralized agentic-RAG baseline on MATH, BBH and MMLU-Pro. Three agent processes route tasks among themselves using only queue backlog and verified per-type success rates. A browser lab runs paired evaluations, streams live progress, and saves auditable per-task traces.
 
@@ -54,7 +54,7 @@ Evidence against the expectation would be equal or lower accuracy with no throug
 | Retriever | Embedding retriever | Lexical cosine + execution-time factor (not BGE); `configs/models/embedding.json` is not used by the lab yet |
 | Baseline | Paper baselines (e.g. AgentNet) | Custom centralized agentic RAG (planner → shared retrieval → executor → reviewer) |
 | Case IDs | Paper's released splits | Public dataset samples, seed 17; not the paper's released case IDs |
-| Scale | Full benchmarks | Pilot runs of 12–25 test cases per dataset |
+| Scale | Full benchmarks | Pilot runs of 12–25 test cases per dataset (main run: 25 × 3 datasets) |
 | Agent pool | Per paper | 3 agents, fully connected graph, capacity 2 |
 
 - **Upstream data:** MATH (`EleutherAI/hendrycks_math`), BIG-Bench Hard (`suzgunmirac/BIG-Bench-Hard`), MMLU-Pro (`TIGER-Lab/MMLU-Pro`). Data is downloaded at runtime and **not** committed. Check each upstream licence before redistributing.
@@ -266,58 +266,96 @@ The first run for a given dataset and warmup size performs the warmup and caches
 
 ## Benchmarks
 
-Pilot results from saved runs. All numbers are from the `summary.json` files in [`results/`](results/). They come from a single seed, use 12–25 test cases per dataset, and use the 3-agent heterogeneous pool and default routing.
+All numbers come from the `summary.json` files in [`results/`](results/). Every run uses the 3-agent heterogeneous pool (`gpt-5-nano`, `gpt-6-luna`, `gpt-4o-mini`), default routing (`V=80`, margin 1, hop limit 3) and seed-17 dataset samples. Test cases are taken in manifest order, so runs with the same test size use the **same cases**.
 
-### Paired test results
+### Main result: `lab-9f2c3916ed` (all three datasets, 25 test cases each)
 
-| Run | Dataset | Warmup | Test n | System | Accuracy | Tokens / case | Median latency | Throughput (tasks/s) | Failed | Forwards |
-|---|---|---|---|---|---|---|---|---|---|---|
-| `lab-186a8e2bb6` | MMLU-Pro | 12, fresh | 25 | **DEALS** | **52.0%** | **936** | **12.1 s** | **1.024** | 0 | 20 |
-| `lab-186a8e2bb6` | MMLU-Pro | 12, fresh | 25 | Agentic RAG | 32.0% | 2,790 | 89.1 s | 0.246 | 1 | 0 |
-| `lab-9f3ae1ef52` | MMLU-Pro | 12 | 12 | **DEALS** | **58.3%** | **872** | **80.7 s** | **0.139** | 0 | 11 |
-| `lab-9f3ae1ef52` | MMLU-Pro | 12 | 12 | Agentic RAG | 16.7% | 2,566 | 319.3 s | 0.037 | 0 | 0 |
+| Dataset | System | Accuracy | Tokens / case | Median latency | Throughput (tasks/s) | Failed | Forwards | Warmup |
+|---|---|---|---|---|---|---|---|---|
+| MATH | **DEALS** | **32.0%** | **403** | **6.9 s** | **1.444** | 1 | 14 | 12, fresh |
+| MATH | Agentic RAG | 20.0% | 1,395 | 77.3 s | 0.264 | 2 | 0 | 12, fresh |
+| BBH | **DEALS** | **48.0%** | **489** | **7.1 s** | **1.530** | 0 | 9 | 12, fresh |
+| BBH | Agentic RAG | 40.0% | 1,598 | 69.9 s | 0.304 | 1 | 0 | 12, fresh |
+| MMLU-Pro | **DEALS** | **44.0%** | **936** | **12.3 s** | **0.983** | 0 | 20 | 12, cached |
+| MMLU-Pro | Agentic RAG | 24.0% | 2,790 | 63.0 s | 0.330 | 2 | 0 | 12, cached |
+| **Pooled (n = 75)** | **DEALS** | **41.3%** (31/75) | **609** | | | 1 | 43 | |
+| **Pooled (n = 75)** | Agentic RAG | 28.0% (21/75) | 1,928 | | | 5 | 0 | |
+
+**Paired significance (same 75 cases):**
+
+| | DEALS-only correct | RAG-only correct | Both correct |
+|---|---|---|---|
+| MATH | 4 | 1 | 4 |
+| BBH | 4 | 2 | 8 |
+| MMLU-Pro | 5 | 0 | 6 |
+| **Pooled** | **13** | **3** | 18 |
+
+- Exact two-sided McNemar test on the pooled discordant pairs: **p = 0.021**.
+- Wilson 95% intervals: DEALS 30.9–52.6%, agentic RAG 19.1–39.0%. The intervals overlap.
+- The per-dataset differences are not significant on their own at n = 25.
+
+The MMLU-Pro warmup in this run was **loaded from the SQLite cache** (created by `lab-186a8e2bb6`, same fingerprint). The DEALS test prompts, and so the input tokens (22,585), are identical to `lab-186a8e2bb6`. That confirms the cached private memory was restored exactly.
+
+### Repeat on the same MMLU-Pro cases (same cached warmup)
+
+| Run | System | Accuracy | Tokens / case | Median latency | Throughput | Failed |
+|---|---|---|---|---|---|---|
+| `lab-186a8e2bb6` | DEALS | 52.0% | 936 | 12.1 s | 1.024 | 0 |
+| `lab-9f2c3916ed` | DEALS | 44.0% | 936 | 12.3 s | 0.983 | 0 |
+| `lab-186a8e2bb6` | Agentic RAG | 32.0% | 2,790 | 89.1 s | 0.246 | 1 |
+| `lab-9f2c3916ed` | Agentic RAG | 24.0% | 2,790 | 63.0 s | 0.330 | 2 |
+
+The same cases, the same warmup state and the same prompts still give **±8 percentage points of run-to-run variation** for both systems. That variation comes from LLM sampling and from which agent each task reaches. The DEALS lead (+20 points) was the same in both runs.
 
 ### Warmup steps
 
 | Run | Dataset | System | n | Accuracy | Tokens / case | Failed |
 |---|---|---|---|---|---|---|
+| `lab-9f2c3916ed` | MATH | DEALS | 12 | 25.0% | 448 | 0 |
+| `lab-9f2c3916ed` | MATH | Agentic RAG | 12 | 0.0% | 1,536 | 0 |
+| `lab-9f2c3916ed` | BBH | DEALS | 12 | 25.0% | 461 | 0 |
+| `lab-9f2c3916ed` | BBH | Agentic RAG | 12 | 8.3% | 1,809 | 3 |
 | `lab-186a8e2bb6` | MMLU-Pro | DEALS | 12 | 25.0% | 775 | 0 |
 | `lab-186a8e2bb6` | MMLU-Pro | Agentic RAG | 12 | 0.0% | 2,488 | 1 |
-| `lab-9f3ae1ef52` | MMLU-Pro | DEALS | 12 | 33.3% | 895 | 0 |
-| `lab-9f3ae1ef52` | MMLU-Pro | Agentic RAG | 12 | 16.7% | 2,488 | 0 |
 
-### Incomplete runs (reported for completeness)
+### Earlier pilot and incomplete runs
 
-| Run | Dataset | What exists | Note |
-|---|---|---|---|
-| `lab-e240319d7d` | MATH | DEALS warmup (16.7%, 1 failed) and DEALS test (25.0%, n=12, 387 tokens/case, 3.4 s median) | Stopped before the baseline steps; no paired comparison |
+| Run | Dataset | Test n | DEALS | Agentic RAG | Note |
+|---|---|---|---|---|---|
+| `lab-9f3ae1ef52` | MMLU-Pro | 12 | 58.3%, 872 tok/case | 16.7%, 2,566 tok/case | Before the warmup cache and the failed-call token fix; provider latency was high during this run (DEALS median 80.7 s) |
+| `lab-e240319d7d` | MATH | 12 | 25.0%, 387 tok/case | — | Stopped before the baseline steps; no paired comparison |
 
-Earlier development runs (MATH and BBH pairs) are **not reported**: their artifacts were deleted by *Clear history* before publication, and their numbers can't be traced to saved evidence. Those runs also used an earlier grader and token accounting.
+Earlier development runs (MATH and BBH pairs before these) are **not reported**: their artifacts were deleted by *Clear history*, and they used an earlier grader and token accounting.
 
 ### What was measured, and how
 
-- Tokens come from the provider-reported usage of every attempted call. In `lab-186a8e2bb6`, the baseline's failed call is included after the failed-call usage fix. In `lab-9f3ae1ef52` no task failed.
-- Latency differences partly reflect structure: the baseline makes **three sequential LLM passes**, each waiting for its whole batch. DEALS makes one routed execution per task.
-- `lab-9f3ae1ef52` shows high DEALS median latency (80.7 s) at very low throughput, which suggests provider-side slowness during that run. Treat cross-run latency comparisons with care.
+- **Tokens:** provider-reported usage of every attempted call, including failed calls with measured usage.
+- **Latency:** the baseline makes **three sequential LLM passes** (plan, execute, review), each waiting for its whole batch, so part of its latency and throughput gap is structural. DEALS makes one routed execution per task.
+- **Cached warmups** add no warmup tokens or time to a run. Each report's `warmup` field records the cache key and the run that produced the warmup.
 
 ## Interpretation and limitations
 
-**What the pilot evidence suggests.** In both MMLU-Pro pairs, DEALS was more accurate (52.0% vs 32.0% and 58.3% vs 16.7%). It also used about 3× fewer tokens per case and had higher throughput than the centralized baseline. Learned quality is used at test time: 16 of 23 routing decisions in a MMLU-Pro DEALS test step saw non-zero learned counts.
+**What the evidence supports.** On the same 75 test cases across MATH, BBH and MMLU-Pro, DEALS beat the centralized agentic-RAG baseline:
+- accuracy 41.3% vs 28.0% (exact McNemar p = 0.021 on the pooled pairs);
+- about 3.2× fewer tokens per case;
+- about 5–11× lower median latency and higher throughput on every dataset;
+- 1 failure vs 5.
 
-**Why it is not yet a conclusion:**
-- **Sample size:** 12–25 test cases, one seed, no confidence intervals. One MMLU-Pro case is 4–8 percentage points.
-- **Coverage:** only MMLU-Pro has saved paired results. MATH and BBH need fresh paired runs.
+The direction matched on all three datasets and in the MMLU-Pro repeat. Learned quality drives test-time routing: in this run, 80 of 118 DEALS routing decisions used non-zero warmup statistics.
+
+**What remains uncertain:**
+- **Sample size:** 25 test cases per dataset and one main run. Per-dataset differences are within noise, the pooled confidence intervals overlap, and repeats vary by ±8 points.
 - **Model confound:** the three agents use different models, so accuracy partly reflects which model received each task, not only the routing policy.
-- **Baseline design:** the custom agentic-RAG baseline is not the paper's baseline. Its planner and reviewer add calls and latency by design, and empty model answers currently fail the task (no retry).
+- **Baseline design:** the custom agentic-RAG baseline is not the paper's baseline. Its planner and reviewer add calls and latency by design, and empty model answers fail the task (no retry). It also had more failures (5 vs 1).
+- **Small warmups:** 12 warmup cases spread over 5–20 task types leave many types with prior-only quality. Larger cached warmups are now cheap to reuse.
 - **Retriever:** lexical, not embedding-based as in the paper.
-- **Small warmups:** 12 warmup cases spread over 5–20 task types leave many types with prior-only quality.
 - **Call labels:** per-call usage records label `system` as `deals` even for baseline calls. Report-level totals are split correctly by system.
 
 **Next steps for evidence:**
-- run MATH/BBH/MMLU-Pro with ≥100 test cases each and several seeds;
+- run 100 test cases per dataset with a larger cached warmup (50–100);
+- repeat 3–5 times and report means with intervals;
 - add a homogeneous-model pool to separate the routing effect from the model effect;
-- add an embedding retriever;
-- report confidence intervals.
+- add an embedding retriever.
 
 ## Testing
 
