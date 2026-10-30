@@ -1,0 +1,1866 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DEALS · Routing lab</title>
+<style>
+:root{--ink:#173a42;--sub:#688087;--green:#128774;--line:#dce7e7;--bg:#f3f7f6;--orange:#c3823f}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font:14px system-ui,sans-serif;color:var(--ink)}
+button,input,select{font:inherit;color:inherit;border:1px solid #cbdcdb;background:white;border-radius:7px;padding:9px 12px}
+button{cursor:pointer}button:hover{border-color:var(--green)}button:disabled{opacity:.5;cursor:wait}
+.primary{background:var(--green);color:white;border-color:var(--green)}
+a{color:var(--green)}h1,h2,h3,p{margin:0}
+h1{font-size:30px;letter-spacing:-1px}h2{font-size:16px}h3{font-size:13px}
+.muted{color:var(--sub)}.small{font-size:12px}.mono{font-family:ui-monospace,monospace}
+.shell{max-width:1500px;margin:auto;padding:27px 34px 50px}
+.top,.heading,.row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.top{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:28px}
+.brand{font-size:14px;font-weight:800;letter-spacing:2px}
+.tag{display:inline-block;background:#e5f2ed;color:#247b67;padding:4px 8px;border-radius:4px;font-size:10px;font-weight:650}
+.tag.orange{background:#fff0de;color:#9a662c}
+.heading{margin-bottom:22px}.heading p{margin-top:8px}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.card{background:white;border:1px solid var(--line);border-radius:11px}
+.pad{padding:20px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}
+.kpi b{display:block;font-size:28px;margin:6px 0}
+.section{margin-top:24px}.section>.row{margin-bottom:14px}
+.two{display:grid;grid-template-columns:1fr 1.4fr;gap:18px;margin-bottom:20px}
+.panel-title{padding:17px 20px;border-bottom:1px solid var(--line)}
+.role{margin:8px 0 14px}
+.role span{display:inline-block;font-size:10px;background:#f0f5f4;margin:3px 4px 0 0;padding:4px 6px;border-radius:4px}
+.counts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.counts b{display:block;font-size:23px}
+.spark{width:100%;height:70px;background:#f8fbfa;border-radius:5px}
+.legend{font-size:10px;display:flex;gap:14px;margin:6px 0;color:var(--sub)}
+table{border-collapse:collapse;width:100%;text-align:left;white-space:nowrap;font-size:12px}
+th{font-size:10px;text-transform:uppercase;letter-spacing:.7px;background:#f8fbfa;color:var(--sub)}
+td,th{padding:12px 16px;border-bottom:1px solid #edf2f1}
+.scroll{overflow:auto}
+td.prompt{max-width:270px;overflow:hidden;text-overflow:ellipsis}
+.link{border:0;color:var(--green);background:transparent;padding:0;font-weight:650}
+.notice{padding:13px 16px;border:1px solid #e3cfa6;background:#fff9eb;color:#88652b;border-radius:7px;margin-bottom:18px}
+.empty{color:var(--sub);padding:30px;text-align:center}
+.formula{background:#edf7f2;border:1px solid #c9e4d8;border-radius:8px;padding:17px;font-size:15px;line-height:1.8}
+.formula b{color:var(--green)}
+.job{padding:12px 16px;border-left:3px solid var(--green);background:white;margin:7px 0}
+.job.error{border-left-color:#c0704b}
+dialog{width:min(1000px,95vw);max-height:92vh;border:1px solid var(--line);border-radius:12px;padding:0;color:var(--ink);box-shadow:0 25px 90px #12333855}
+dialog::backdrop{background:#12333877;backdrop-filter:blur(3px)}
+.dialog-head{padding:18px 22px;border-bottom:1px solid var(--line);position:sticky;top:0;background:white;z-index:1}
+.dialog-body{padding:22px;overflow:auto}
+.steps{display:flex;flex-wrap:wrap;gap:7px;margin:18px 0}
+.steps button.active{background:var(--green);color:white}
+.candidate{padding:15px;margin:12px 0;border:1px solid var(--line);border-radius:8px}
+.terms{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+.terms span{color:var(--sub);font-size:11px}
+.terms b{display:block;font-size:20px;color:var(--ink)}
+.score-track{height:12px;background:#edf2f1;position:relative;border-radius:3px;margin:12px 0}
+.zero{position:absolute;height:100%;width:1px;left:50%;background:#8fa6a5}
+.score-fill{position:absolute;height:100%;background:#36ad8c;border-radius:3px}
+.score-fill.negative{background:#b2bdd3}
+.threshold{position:absolute;top:-4px;height:20px;width:2px;background:#d09352}
+.answer{background:#eff7f2;border-radius:8px;padding:16px;white-space:pre-wrap;overflow-wrap:anywhere;max-height:160px;overflow:auto}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:20px}
+.bar{height:8px;background:#edf3f1;margin:5px 0 12px;border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--green)}
+.bar.baseline i{background:var(--orange)}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f3f6f5;padding:14px;border-radius:7px;font-size:11px;max-height:300px;overflow:auto}
+.footer{color:var(--sub);font-size:11px;margin-top:25px}
+.tabs{display:flex;gap:10px;margin:15px 0}
+.tabs button.selected{border-color:var(--green);box-shadow:0 0 0 1px var(--green)}
+svg text{font-family:system-ui,sans-serif}
+.status{width:7px;height:7px;display:inline-block;background:#8faaa3;border-radius:50%;margin-right:6px}
+.status.ok{background:#2ab488}
+label{font-size:11px;color:var(--sub)}
+label select,label input{display:block;margin-top:5px}
+#updates .row{flex-wrap:wrap}
+@media(max-width:1000px){.cards{grid-template-columns:1fr}.two{grid-template-columns:1fr}.shell{padding:20px}.metrics{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.shell{padding:15px}.heading,.section>.row{align-items:flex-start;flex-direction:column}.kpis{grid-template-columns:1fr 1fr}.controls input{width:85px}.top{font-size:11px}.terms{gap:5px}.terms b{font-size:16px}.metrics{grid-template-columns:1fr}h1{font-size:26px}}
+</style>
+</head>
+<body>
+<main class="shell">
+  <div class="top">
+    <span class="brand">DEALS <span class="muted">/ RESEARCH LAB</span></span>
+    <div class="controls">
+      <a href="/">Original console ↗</a>
+      <span id="connection" class="tag">CONNECTING</span>
+    </div>
+  </div>
+
+  <div id="notice" class="notice" hidden></div>
+
+  <div class="heading">
+    <div>
+      <h1>See why the task moved.</h1>
+      <p class="muted">Concurrent work, measured expertise and every routing decision.</p>
+    </div>
+    <span class="tag">EXISTING MODEL BACKENDS</span>
+  </div>
+
+  <div class="card pad" style="margin-bottom:20px">
+    <div class="row">
+      <div>
+        <h2>Evaluation controls</h2>
+        <p class="muted small" style="margin-top:6px">
+          Benchmark questions · live routing · evaluation controls
+        </p>
+      </div>
+      <div class="controls">
+        <label>Ingress<select id="entry"></select></label>
+        <label>Tasks
+          <input id="count" type="number" min="1" max="100" value="18" style="width:85px">
+        </label>
+        <button class="primary" id="batch">Run concurrent batch →</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="jobs"></div>
+
+  <div class="kpis">
+    <div class="card pad kpi">
+      <span class="muted small">Agents online</span>
+      <b id="online">—</b>
+      <span class="muted small">Independent execution processes</span>
+    </div>
+    <div class="card pad kpi">
+      <span class="muted small">Completed / recent tasks</span>
+      <b id="completed">—</b>
+      <span class="muted small">Up to 200 deduplicated traces</span>
+    </div>
+    <div class="card pad kpi">
+      <span class="muted small">Forward decisions</span>
+      <b id="forwarded">—</b>
+      <span class="muted small">Recorded task hops</span>
+    </div>
+    <div class="card pad kpi">
+      <span class="muted small">Current total backlog</span>
+      <b id="backlog">—</b>
+      <span class="muted small">Queued + reserved / in flight</span>
+    </div>
+  </div>
+
+  <div class="cards" id="agents"></div>
+
+  <div class="two">
+    <section class="card">
+      <div class="panel-title">
+        <h2>Task route</h2>
+        <p class="muted small" style="margin-top:4px">
+          Choose Inspect on any task to highlight its hops.
+        </p>
+      </div>
+      <div id="network" style="height:250px;padding:15px"></div>
+    </section>
+
+    <section class="card">
+      <div class="panel-title row">
+        <div>
+          <h2>Mathematics behind routing</h2>
+          <p class="small muted" style="margin-top:4px">No router LLM call in DEALS.</p>
+        </div>
+        <select id="task-type" aria-label="Inspect type"></select>
+      </div>
+      <div class="pad">
+        <div class="formula mono">
+          Bᵢ = Qᵢ + Iᵢ<br>
+          qᵢ = (N⁺ᵢ + 1) / (N⁺ᵢ + N⁻ᵢ + 2)<br>
+          Rᵢⱼ = <b>(Bᵢ − Bⱼ)</b> + V × <b>(qⱼ − qᵢ)</b><br>
+          Forward iff max eligible Rᵢⱼ &gt; margin
+        </div>
+        <p class="small muted" style="margin:12px 0">
+          A task reserves a slot before routing. Previous agent is excluded.
+          The hop limit forces local execution. Ties use the smallest agent index.
+        </p>
+        <div id="quality"></div>
+      </div>
+    </section>
+  </div>
+
+  <section class="card">
+    <div class="panel-title row">
+      <div>
+        <h2>Tasks and execution traces</h2>
+        <p class="muted small" style="margin-top:4px">
+          Inspect the actual routing snapshot, score terms and answer.
+        </p>
+      </div>
+      <input id="search" placeholder="Search tasks" aria-label="Search tasks">
+    </div>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Task / input</th><th>Status</th><th>Path</th>
+            <th>Calls</th><th>Latency</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="tasks"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="row">
+      <div>
+        <h2>Benchmarks and paired comparison</h2>
+        <p class="small muted" style="margin-top:6px">
+          All three paper datasets · same cases for both systems · separate warmup and test
+        </p>
+      </div>
+      <div class="controls">
+        <label>Datasets
+          <select id="datasets">
+            <option value="all">All three</option>
+            <option value="math">MATH</option>
+            <option value="bbh">BBH</option>
+            <option value="mmlu_pro">MMLU-Pro</option>
+          </select>
+        </label>
+        <label>Test tasks
+          <select id="test-size">
+            <option value="12">12 per dataset</option>
+            <option value="25">25 per dataset</option>
+            <option value="50">50 per dataset</option>
+            <option value="100">100 per dataset</option>
+            <option value="all">All test cases</option>
+          </select>
+        </label>
+        <label>Warmup (cached)
+          <select id="warmup-size">
+            <option value="12">12 cases</option>
+            <option value="50">50 cases</option>
+            <option value="100">100 cases</option>
+            <option value="all">Full warmup split</option>
+          </select>
+        </label>
+        <label title="Ignore the cached warmup and run (and re-cache) a new one">
+          <input type="checkbox" id="fresh-warmup" style="display:inline-block;width:auto;margin:0 4px 0 0">
+          Re-run warmup
+        </label>
+        <button id="benchmark" class="primary">Run paired evaluation →</button>
+      </div>
+    </div>
+
+    <div id="live-eval" class="card" hidden></div>
+    <div class="controls small muted" style="margin:-8px 0 16px">
+      <span id="warmup-cache-list">Cached warmups: loading…</span>
+      <button id="warmup-cache-clear" class="link" style="font-size:12px">Clear warmup cache</button>
+    </div>
+
+    
+
+    <div class="cards" id="dataset-cards"></div>
+
+    <div class="controls">
+      <button id="import">↑ Import exact split JSON</button>
+      <button id="format">↓ Split format</button>
+      <input type="file" id="file" accept="application/json" hidden>
+      <span class="small muted">Warmup and test cases must be disjoint.</span>
+    </div>
+
+    <div class="tabs" id="tabs">
+      <button data-dataset="math" class="selected">MATH</button>
+      <button data-dataset="bbh">BBH</button>
+      <button data-dataset="mmlu_pro">MMLU-Pro</button>
+    </div>
+
+    <div class="card">
+      <div class="panel-title">
+        <h2 id="compare-title">MATH · paired test results</h2>
+        <p class="small muted" id="pair-note" style="margin-top:5px">
+          Run both systems to see measured results.
+        </p>
+      </div>
+      <div id="comparison" class="metrics"></div>
+      <div class="pad small muted">
+        Agentic RAG baseline: central LLM planner → shared warmup retrieval →
+        specialist executor → central reviewer.
+        All stages count toward tokens and elapsed time.
+      </div>
+    </div>
+  </section>
+
+  <section class="section card">
+    <div class="panel-title">
+      <h2>Quality updates · verified outcomes</h2>
+      <p class="small muted" style="margin-top:5px">
+        Role prompts configure specializations. Success and failure counts
+        determine measured quality. Test phases freeze both quality and memory.
+      </p>
+    </div>
+    <div id="updates" class="pad"></div>
+  </section>
+
+  <section class="section card">
+    <div class="panel-title row">
+      <h2>Run evidence</h2>
+      <button id="export">↓ Export current snapshot</button>
+    </div>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Dataset / phase</th><th>System</th><th>Cases / failed</th>
+            <th>Accuracy</th><th>Tokens / case</th>
+            <th>Median latency</th><th>Tasks / sec</th>
+          </tr>
+        </thead>
+        <tbody id="reports"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <p class="footer">
+    DEALS LOCAL LAB · Private per-agent verified memory · Provider token counts ·
+    Cached input is already included in input tokens
+  </p>
+</main>
+
+<dialog id="trace">
+  <div class="dialog-head row">
+    <div>
+      <h2>Explain this decision</h2>
+      <p id="trace-id" class="small muted mono"></p>
+    </div>
+    <div class="controls">
+      <button id="trace-export">↓ JSON</button>
+      <button id="close">✕</button>
+    </div>
+  </div>
+  <div class="dialog-body" id="trace-body"></div>
+</dialog>
+
+<script>
+'use strict';
+
+const $ = id => document.getElementById(id);
+
+const esc = value => String(value ?? '').replace(
+  /[&<>"']/g,
+  char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char])
+);
+
+const fmt = (value, digits = 0) =>
+  typeof value === 'number' && Number.isFinite(value)
+    ? new Intl.NumberFormat(
+        'en', {maximumFractionDigits: digits}
+      ).format(value)
+    : '—';
+
+const pct = value =>
+  typeof value === 'number'
+    ? fmt(value * 100, 1) + '%'
+    : '—';
+
+const sec = value =>
+  typeof value === 'number'
+    ? fmt(value, 2) + ' s'
+    : '—';
+
+let state = {
+  nodes: [],
+  tasks: [],
+  reports: [],
+  jobs: [],
+  ready: {}
+};
+let selected = 'math';
+let active = null;
+let stepIndex = 0;
+let busy = false;
+
+async function api(path, body) {
+  const method = body === undefined ? 'GET' : 'POST';
+  const url = new URL('/lab-api' + path, window.location.href);
+  const options = {
+    method,
+    headers: {Accept: 'application/json'},
+    credentials: 'same-origin'
+  };
+  if (method === 'POST') {
+    options.headers['Content-Type'] = 'application/json';
+    options.body = JSON.stringify(body);
+  } else {
+    options.cache = 'no-store';
+  }
+
+  let response;
+  try {
+    response = await window.fetch(url.href, options);
+  } catch (error) {
+    throw Error(method + ' ' + url.pathname + ': ' + error.message);
+  }
+
+  const text = await response.text();
+  let data;
+  try {
+    data = text.trim() ? JSON.parse(text) : null;
+  } catch (_) {
+    throw Error(
+      'HTTP ' + response.status + ' · ' + method + ' ' + url.pathname
+      + ' · Server returned non-JSON: '
+      + text.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').slice(0, 240)
+    );
+  }
+
+  if (!response.ok) {
+    const detail = typeof data?.detail === 'string'
+      ? data.detail
+      : JSON.stringify(data?.detail ?? data);
+    throw Error(
+      'HTTP ' + response.status + ' · ' + method
+      + ' ' + url.pathname + ' · ' + detail
+    );
+  }
+
+  if (!data || typeof data !== 'object') {
+    throw Error('Empty or invalid API response: ' + url.pathname);
+  }
+  return data;
+}
+
+function error(value) {
+  $('notice').hidden = false;
+  $('notice').textContent = value.message || value;
+}
+
+function download(name, data) {
+  const url = URL.createObjectURL(new Blob(
+    [JSON.stringify(data, null, 2)],
+    {type: 'application/json'}
+  ));
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = name;
+  anchor.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function spark(points) {
+  if (!points?.length) return '';
+  const maximum = Math.max(1, ...points.map(point => point.backlog));
+  const series = [
+    ['backlog', '#a8c9bf'],
+    ['queued', '#188c79'],
+    ['in_flight', '#d69955']
+  ];
+  return `
+    <svg class="spark" viewBox="0 0 300 70"
+      role="img" aria-label="Queue and in-flight history">
+      ${series.map(([key, color]) => `
+        <polyline
+          points="${points.map((point, index) =>
+            `${index * 300 / Math.max(1, points.length - 1)},${
+              64 - 58 * point[key] / maximum
+            }`
+          ).join(' ')}"
+          fill="none" stroke="${color}" stroke-width="2"/>
+      `).join('')}
+    </svg>
+  `;
+}
+
+function network() {
+  const nodes = state.nodes;
+  const positions = nodes.map((_, index) => ({
+    x: 240 + 150 * Math.cos(-Math.PI / 2 + 2 * Math.PI * index / nodes.length),
+    y: 110 + 65 * Math.sin(-Math.PI / 2 + 2 * Math.PI * index / nodes.length)
+  }));
+
+  const path = (
+    state.tasks.find(task => task.task_id === active)?.steps || []
+  ).flatMap(step =>
+    step.routing?.action === 'forward'
+      ? [[step.agent_id, step.routing.destination]]
+      : []
+  );
+
+  let lines = '';
+  nodes.forEach((node, index) =>
+    (state.graph?.[node.agent_id] || []).forEach(id => {
+      const target = nodes.findIndex(peer => peer.agent_id === id);
+      if (target < 0) return;
+      const chosen = path.some(
+        hop => hop[0] === node.agent_id && hop[1] === id
+      );
+      lines += `
+        <line
+          x1="${positions[index].x}" y1="${positions[index].y}"
+          x2="${positions[target].x}" y2="${positions[target].y}"
+          stroke="${chosen ? '#128774' : '#cfdfda'}"
+          stroke-width="${chosen ? 4 : 1}"
+          ${chosen ? '' : 'stroke-dasharray="5 4"'}/>
+      `;
+    })
+  );
+
+  $('network').innerHTML = `
+    <svg width="100%" height="100%" viewBox="0 0 480 230"
+      role="img" aria-label="Configured network with selected task hops">
+      ${lines}
+      ${nodes.map((node, index) => `
+        <g>
+          <rect
+            x="${positions[index].x - 64}"
+            y="${positions[index].y - 24}"
+            width="128" height="50" rx="10"
+            fill="white"
+            stroke="${node.status === 'ok' ? '#88bba9' : '#d7dfdd'}"/>
+          <text
+            x="${positions[index].x}"
+            y="${positions[index].y - 3}"
+            text-anchor="middle" font-size="12" fill="#173a42">
+            ${esc(node.agent_id)}
+          </text>
+          <text
+            x="${positions[index].x}"
+            y="${positions[index].y + 14}"
+            text-anchor="middle" font-size="10" fill="#688087">
+            ${esc(node.role?.name || 'offline')}
+          </text>
+        </g>
+      `).join('')}
+    </svg>
+  `;
+}
+
+function quality() {
+  const taskType = $('task-type').value;
+  $('quality').innerHTML = state.nodes
+    .filter(node => node.types?.[taskType])
+    .map(node => {
+      const snapshot = node.types[taskType];
+      const value = (
+        snapshot.successes + 1
+      ) / (
+        snapshot.successes + snapshot.failures + 2
+      );
+      return `
+        <div class="row small" style="margin:8px 0">
+          <span>
+            ${esc(node.agent_id)} ·
+            ${fmt(snapshot.successes)} successes /
+            ${fmt(snapshot.failures)} failures
+          </span>
+          <b>q = ${fmt(value, 3)}</b>
+        </div>
+      `;
+    }).join('');
+}
+
+function tasks() {
+  const query = $('search').value.toLowerCase();
+  $('tasks').innerHTML = [...state.tasks].reverse()
+    .filter(task =>
+      `${task.task_id} ${task.original_prompt}`
+        .toLowerCase().includes(query)
+    )
+    .slice(0, 100)
+    .map(task => `
+      <tr>
+        <td class="prompt" title="${esc(task.original_prompt)}">
+          <b class="mono">${esc(task.task_id.slice(0, 8))}</b>
+          <div class="muted small">
+            ${esc(task.original_prompt.slice(0, 100))}
+          </div>
+        </td>
+        <td>
+          <span class="tag ${task.status === 'failed' ? 'orange' : ''}">
+            ${esc(task.status)}
+          </span>
+        </td>
+        <td>
+          ${(task.steps || []).map(step => esc(step.agent_id))
+            .join(' → ') || 'queued'}
+        </td>
+        <td>${fmt(task.calls?.length)}</td>
+        <td>${sec(task.latency_seconds)}</td>
+        <td>
+          <button class="link" data-task="${esc(task.task_id)}">
+            Inspect ↗
+          </button>
+        </td>
+      </tr>
+    `).join('') || `
+      <tr><td colspan="6" class="empty">Waiting for batch tasks…</td></tr>
+    `;
+}
+
+function comparison() {
+  const reports = state.reports.filter(
+    report => report.dataset === selected && report.phase === 'test'
+  );
+
+  let deals = null;
+  let baseline = null;
+
+  for (const report of reports.filter(report => report.system === 'deals')) {
+    const paired = reports.find(candidate =>
+      candidate.system === 'agentic_rag'
+      && candidate.comparison_group === report.comparison_group
+      && candidate.case_set === report.case_set
+    );
+    if (paired) {
+      deals = report;
+      baseline = paired;
+      break;
+    }
+  }
+
+  $('compare-title').textContent =
+    selected.toUpperCase() + ' · paired test results';
+
+  $('pair-note').textContent = deals
+    ? `${deals.metrics.cases} identical cases · ${
+        deals.comparison_group
+      } · all attempted stages included`
+    : 'No completed pair yet. Results appear after both test runs finish.';
+
+  const metrics = [
+    ['Accuracy', 'accuracy', pct],
+    ['Tokens / case', 'tokens_per_task', value => fmt(value, 1)],
+    ['Median latency', 'median_latency', sec],
+    ['Throughput · tasks / sec', 'throughput', value => fmt(value, 3)]
+  ];
+
+  $('comparison').innerHTML = metrics.map(([name, key, format]) => {
+    const maximum = Math.max(
+      deals?.metrics[key] || 0,
+      baseline?.metrics[key] || 0,
+      0.001
+    );
+
+    const rows = [
+      [deals, 'DEALS', ''],
+      [baseline, 'Agentic RAG', 'baseline']
+    ];
+
+    return `
+      <div>
+        <h3 style="margin-bottom:13px">${name}</h3>
+        ${rows.map(([report, label, color]) => `
+          <div class="row small">
+            <span>${label}</span>
+            <b>${format(report?.metrics[key])}</b>
+          </div>
+          <div class="bar ${color}">
+            <i style="width:${
+              report?.metrics[key] != null
+                ? 100 * report.metrics[key] / maximum
+                : 0
+            }%"></i>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }).join('');
+}
+
+function render() {
+  const online = state.nodes.filter(node => node.status === 'ok');
+
+  $('online').textContent = online.length + ' / ' + state.nodes.length;
+  $('completed').textContent =
+    state.tasks.filter(task => task.status === 'completed').length
+    + ' / ' + state.tasks.length;
+
+  $('forwarded').textContent = state.tasks.reduce(
+    (total, task) =>
+      total + (task.steps || []).filter(
+        step => step.routing?.action === 'forward'
+      ).length,
+    0
+  );
+
+  $('backlog').textContent = online.reduce(
+    (total, node) =>
+      total + Object.values(node.types).reduce(
+        (sum, value) => sum + value.queued + value.in_flight, 0
+      ),
+    0
+  );
+
+  $('connection').textContent =
+    online.length === state.nodes.length
+      ? 'LIVE · ' + new Date().toLocaleTimeString()
+      : 'AGENT OFFLINE';
+
+  const oldEntry = $('entry').value;
+  $('entry').innerHTML = state.nodes.map(
+    node => `<option>${esc(node.agent_id)}</option>`
+  ).join('');
+  if ([...$('entry').options].some(option => option.value === oldEntry)) {
+    $('entry').value = oldEntry;
+  }
+
+  $('agents').innerHTML = state.nodes.map(node => {
+    if (node.status !== 'ok') {
+      return `
+        <article class="card pad">
+          <h2>${esc(node.agent_id)}</h2>
+          <p class="muted">Offline</p>
+        </article>
+      `;
+    }
+
+    const snapshots = Object.values(node.types);
+    const queued = snapshots.reduce((total, value) => total + value.queued, 0);
+    const inFlight = snapshots.reduce(
+      (total, value) => total + value.in_flight, 0
+    );
+
+    return `
+      <article class="card pad">
+        <div class="row">
+          <h2><span class="status ok"></span>${esc(node.agent_id)}</h2>
+          <span class="tag">${esc(node.context.phase)}</span>
+        </div>
+        <p class="muted small" style="margin-top:6px">
+          ${esc(node.model)} · ${node.capacity} execution slots
+        </p>
+        <div class="role">
+          <strong>${esc(node.role.name)}</strong>
+          <div>
+            ${node.role.skills.map(
+              skill => `<span>${esc(skill)}</span>`
+            ).join('')}
+          </div>
+        </div>
+        <div class="counts">
+          <div><span class="muted small">Queued</span><b>${queued}</b></div>
+          <div><span class="muted small">In flight</span><b>${inFlight}</b></div>
+          <div><span class="muted small">Backlog</span><b>${queued + inFlight}</b></div>
+        </div>
+        ${spark(node.history)}
+        <div class="legend">
+          <span>● Queue</span>
+          <span style="color:#d69955">● In flight</span>
+          <span>Peak B: ${node.peaks.backlog}</span>
+        </div>
+      </article>
+    `;
+  }).join('');
+
+  const oldType = $('task-type').value;
+  const taskTypes = [
+    ...new Set(online.flatMap(node => Object.keys(node.types)))
+  ];
+  $('task-type').innerHTML = taskTypes.map(
+    taskType => `<option>${esc(taskType)}</option>`
+  ).join('');
+  if (taskTypes.includes(oldType)) $('task-type').value = oldType;
+
+  quality();
+  network();
+  tasks();
+
+  const activeJob = state.jobs.some(
+    job => ['running', 'queued'].includes(job.status)
+  );
+  $('batch').disabled = activeJob;
+  $('benchmark').disabled = activeJob;
+
+  $('jobs').innerHTML = state.jobs.slice(-5).reverse().map(job => `
+    <div class="job ${job.status === 'failed' ? 'error' : ''}">
+      <div class="row">
+        <b class="small">${esc(job.id)} · ${esc(job.status)}</b>
+        <span class="small muted">${esc(job.progress)}</span>
+      </div>
+      ${job.error
+        ? `<p class="small" style="margin-top:8px">${esc(job.error)}</p>`
+        : ''}
+    </div>
+  `).join('');
+
+  const datasets = [
+    ['math', 'MATH', 700, 140, 7],
+    ['bbh', 'BBH', 627, 100, 20],
+    ['mmlu_pro', 'MMLU-Pro', 200, 100, 5]
+  ];
+
+  $('dataset-cards').innerHTML = datasets.map(
+    ([id, name, warmup, test, types]) => `
+      <article class="card pad">
+        <div class="row">
+          <h2>${name}</h2>
+          <button data-download="${id}">↓ Load public data</button>
+        </div>
+        <div class="counts">
+          <div><span class="small muted">Warmup target</span><b>${warmup}</b></div>
+          <div><span class="small muted">Test target</span><b>${test}</b></div>
+          <div><span class="small muted">Types</span><b>${types}</b></div>
+        </div>
+        <p class="small muted">
+          Loaded: ${state.ready[id]?.warmup || 0} warmup /
+          ${state.ready[id]?.test || 0} test
+        </p>
+      </article>
+    `
+  ).join('');
+
+  comparison();
+
+  const updates = online.flatMap(node =>
+    (node.updates || []).map(update => ({
+      ...update, agent: node.agent_id
+    }))
+  ).sort((a, b) => b.at - a.at).slice(0, 12);
+
+  $('updates').innerHTML = updates.map(update => {
+    const [successes, failures] = update.before;
+    const [newSuccesses, newFailures] = update.after;
+
+    return `
+      <div class="row small" style="margin:10px 0">
+        <span>
+          <b>${esc(update.agent)}</b> · ${esc(update.type)} ·
+          ${update.correct ? 'verified success' : 'verified failure'}
+        </span>
+        <span class="mono">
+          (${successes}+1)/(${successes}+${failures}+2)
+          = ${fmt((successes + 1) / (successes + failures + 2), 3)}
+          →
+          (${newSuccesses}+1)/(${newSuccesses}+${newFailures}+2)
+          = <b>${
+            fmt(
+              (newSuccesses + 1) / (newSuccesses + newFailures + 2),
+              3
+            )
+          }</b>
+        </span>
+      </div>
+    `;
+  }).join('') || `
+    <p class="muted small">
+      Quality starts at 0.5. Verified warmup outcomes will appear here.
+    </p>
+  `;
+
+  $('reports').innerHTML = state.reports.map(report => `
+    <tr>
+      <td>${esc(report.dataset)} / ${esc(report.phase)}</td>
+      <td>${report.system === 'deals' ? 'DEALS' : 'Agentic RAG'}</td>
+      <td>${report.metrics.cases} / ${report.metrics.failed}</td>
+      <td>${pct(report.metrics.accuracy)}</td>
+      <td>${fmt(report.metrics.tokens_per_task, 1)}</td>
+      <td>${sec(report.metrics.median_latency)}</td>
+      <td>${fmt(report.metrics.throughput, 3)}</td>
+    </tr>
+  `).join('');
+
+  if ($('trace').open) renderTrace();
+}
+
+function renderTrace() {
+  const task = state.tasks.find(task => task.task_id === active);
+  if (!task) return;
+
+  const steps = task.steps || [];
+  stepIndex = Math.min(stepIndex, Math.max(0, steps.length - 1));
+  const step = steps[stepIndex];
+  const routing = step?.routing;
+  const explanation = routing?.xai;
+
+  $('trace-id').textContent = task.task_id;
+
+  let decision = '<p class="empty">Routing snapshot is not available yet.</p>';
+
+  if (explanation) {
+    const x = explanation;
+    decision = `
+      <div class="formula">
+        <b>
+          ${esc(step.agent_id)}
+          ${routing.action === 'forward'
+            ? '→ ' + esc(routing.destination)
+            : 'executes locally'}
+        </b>
+        <br>${esc(x.reason)}<br>
+        <span class="mono small">
+          B = ${x.local.queued} + ${x.local.in_flight}
+          = ${x.local.queued + x.local.in_flight}
+          · q = ${fmt(x.local_quality, 4)}
+          · V = ${x.weight} · margin = ${x.margin}
+          <br>
+          Hop ${x.hop_count}/${x.hop_limit}
+          · previous agent: ${esc(x.previous_agent || 'none')}
+          · ${esc(x.phase)}
+        </span>
+      </div>
+    `;
+
+    decision += x.candidates.map(candidate => {
+      const scale = Math.max(
+        2,
+        Math.abs(x.margin) + 1,
+        ...x.candidates.map(value => Math.abs(value.score) + 1)
+      );
+      const width = 50 * Math.abs(candidate.score) / scale;
+      const label = !candidate.eligible
+        ? 'EXCLUDED'
+        : routing.destination === candidate.agent_id
+          ? 'SELECTED'
+          : candidate.score > x.margin
+            ? 'ABOVE MARGIN'
+            : 'BELOW / EQUAL MARGIN';
+
+      return `
+        <article class="candidate">
+          <div class="row">
+            <b>${esc(candidate.agent_id)}</b>
+            <span class="tag ${
+              routing.destination === candidate.agent_id ? '' : 'orange'
+            }">${label}</span>
+          </div>
+          <div class="terms">
+            <div>
+              <span>Backlog term Bᵢ − Bⱼ</span>
+              <b>${fmt(candidate.load_term, 3)}</b>
+            </div>
+            <div>
+              <span>Quality term V(qⱼ − qᵢ)</span>
+              <b>${fmt(candidate.quality_term, 3)}</b>
+            </div>
+            <div><span>Total R</span><b>${fmt(candidate.score, 3)}</b></div>
+          </div>
+          <div class="score-track">
+            <i class="zero"></i>
+            <i
+              class="score-fill ${candidate.score < 0 ? 'negative' : ''}"
+              style="left:${
+                candidate.score < 0 ? 50 - width : 50
+              }%;width:${width}%"></i>
+            <i
+              class="threshold"
+              title="Forwarding margin"
+              style="left:${50 + 50 * x.margin / scale}%"></i>
+          </div>
+          <p class="small muted">
+            Peer Q=${candidate.queued}, I=${candidate.in_flight},
+            N⁺=${candidate.successes}, N⁻=${candidate.failures}.
+            Orange line = strict forwarding threshold.
+          </p>
+        </article>
+      `;
+    }).join('') || `
+      <p class="muted small" style="margin:15px 0">
+        No eligible neighbors returned for this hop.
+      </p>
+    `;
+  }
+
+  $('trace-body').innerHTML = `
+    <p class="small">${esc(task.original_prompt)}</p>
+    <div class="steps">
+      ${steps.map((step, index) => `
+        <button
+          class="${index === stepIndex ? 'active' : ''}"
+          data-step="${index}">
+          ${index + 1}. ${esc(step.agent_id)} ·
+          ${esc(step.routing?.action || 'pending')}
+        </button>
+      `).join('')}
+    </div>
+
+    ${decision}
+
+    ${task.result ? `
+      <h3 style="margin:20px 0 10px">Final answer</h3>
+      <div class="answer">${esc(task.result.final_answer)}</div>
+    ` : ''}
+
+    ${task.error ? `
+      <p class="notice">${esc(task.error)}</p>
+    ` : ''}
+
+    <details style="margin-top:20px">
+      <summary>Full recorded evidence and provider calls</summary>
+      <pre>${esc(JSON.stringify(task, null, 2))}</pre>
+    </details>
+  `;
+}
+
+async function refresh() {
+  if (busy) return;
+  busy = true;
+  try {
+    state = await api('/state');
+    $('notice').hidden = true;
+    render();
+  } catch (value) {
+    error(value);
+    $('connection').textContent = 'BACKEND UNAVAILABLE';
+  } finally {
+    busy = false;
+  }
+}
+
+async function action(callback) {
+  try {
+    await callback();
+    await refresh();
+  } catch (value) {
+    error(value);
+  }
+}
+
+$('batch').onclick = () => action(() => api('/jobs', {
+  mode: 'batch',
+  entry: $('entry').value,
+  count: Number($('count').value)
+}));
+
+$('benchmark').onclick = () => action(() => api('/jobs', {
+  mode: 'benchmark',
+  datasets: $('datasets').value === 'all'
+    ? ['math', 'bbh', 'mmlu_pro']
+    : [$('datasets').value],
+  test_size: $('test-size').value,
+  warmup_size: $('warmup-size').value,
+  fresh_warmup: $('fresh-warmup').checked
+}));
+
+$('dataset-cards').onclick = event => {
+  const button = event.target.closest('[data-download]');
+  if (button) {
+    action(() => api('/datasets', {
+      dataset: button.dataset.download
+    }));
+  }
+};
+
+$('tabs').onclick = event => {
+  const button = event.target.closest('[data-dataset]');
+  if (!button) return;
+  selected = button.dataset.dataset;
+  document.querySelectorAll('[data-dataset]').forEach(
+    item => item.classList.toggle('selected', item === button)
+  );
+  comparison();
+};
+
+$('search').oninput = tasks;
+$('task-type').onchange = quality;
+
+$('tasks').onclick = event => {
+  const button = event.target.closest('[data-task]');
+  if (!button) return;
+  active = button.dataset.task;
+  stepIndex = 0;
+  renderTrace();
+  network();
+  $('trace').showModal();
+};
+
+$('trace-body').onclick = event => {
+  const button = event.target.closest('[data-step]');
+  if (button) {
+    stepIndex = Number(button.dataset.step);
+    renderTrace();
+  }
+};
+
+$('close').onclick = () => $('trace').close();
+
+$('export').onclick = () =>
+  download('deals-lab-snapshot.json', state);
+
+$('trace-export').onclick = () =>
+  download(
+    'deals-trace-' + active + '.json',
+    state.tasks.find(task => task.task_id === active)
+  );
+
+$('import').onclick = () => $('file').click();
+
+$('file').onchange = event => action(async () => {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (file.size > 10000000) throw Error('Split exceeds 10 MB');
+  await api('/datasets', JSON.parse(await file.text()));
+  event.target.value = '';
+});
+
+$('format').onclick = () => download(
+  'deals-benchmark-split.json',
+  {
+    dataset: 'math',
+    provenance: 'Exact released split, source URL and revision',
+    warmup: [{
+      id: 'original-train-case-id',
+      type: 'math.algebra',
+      prompt: 'Original training question',
+      answer: 'Reference answer'
+    }],
+    test: [{
+      id: 'original-test-case-id',
+      type: 'math.algebra',
+      prompt: 'Different held-out question',
+      answer: 'Reference answer'
+    }]
+  }
+);
+
+refresh();
+setInterval(refresh, 2000);
+</script>
+<!-- DEALS_CONTROLS_V2 -->
+<script>
+
+(() => {
+  const batch = $('batch');
+  const panel = batch.closest('.card');
+
+  panel.querySelector('h2').textContent = 'Evaluation controls';
+  panel.querySelector('p').textContent =
+    'Benchmark questions · live routing · stop evaluation and clear history';
+
+  $('entry').parentElement.hidden = true;
+  $('count').parentElement.hidden = true;
+  batch.hidden = true;
+
+  const buttons = document.createElement('div');
+  buttons.className = 'controls';
+  buttons.innerHTML =
+    '<button id="labStop" disabled>Stop evaluation</button>' +
+    '<button id="labClear">Clear history</button>';
+
+  panel.querySelector('.row').appendChild(buttons);
+
+  const message = document.createElement('p');
+  message.id = 'labControlMessage';
+  message.className = 'small muted';
+  message.style.marginTop = '12px';
+  message.textContent =
+    'Clear history removes task/call traces, reports and learned warmup state. ' +
+    'Downloaded datasets and agent profiles remain.';
+  panel.appendChild(message);
+
+  let pending = false;
+  const previousRender = render;
+
+  render = function () {
+    previousRender();
+
+    const controls = state.controls || {};
+    const evaluation = controls.evaluation;
+
+    $('labStop').disabled = pending || !evaluation;
+    $('labStop').textContent =
+      evaluation?.status === 'stopping'
+        ? 'Retry stop'
+        : 'Stop evaluation';
+
+    $('labClear').disabled =
+      pending || !controls.can_clear;
+
+    $('benchmark').disabled =
+      pending ||
+      !!evaluation ||
+      state.jobs.some(job =>
+        ['queued', 'running', 'stopping'].includes(job.status)
+      );
+
+    if (evaluation?.status === 'stopping') {
+      message.textContent =
+        evaluation.progress ||
+        'Stopping: waiting for requests already sent to the provider.';
+    }
+  };
+
+  $('labStop').onclick = async () => {
+    const job = state.controls?.evaluation;
+    if (!job || pending) return;
+
+    pending = true;
+    $('labStop').disabled = true;
+    message.textContent =
+      'Requesting stop. Requests already accepted by the LLM provider ' +
+      'may finish before the run becomes stopped.';
+
+    try {
+      const reply = await api('/stop', {
+        job_id: job.id
+      });
+
+      message.textContent = reply.pending_nodes?.length
+        ? 'Stop requested. Waiting for agents: ' +
+          reply.pending_nodes.join(', ')
+        : 'Stop accepted. Queued tasks are being cancelled; ' +
+          'in-flight requests are settling.';
+    } catch (error) {
+      message.textContent = error.message;
+    } finally {
+      pending = false;
+      await refresh();
+    }
+  };
+
+  $('labClear').onclick = async () => {
+    if (pending) return;
+
+    pending = true;
+    $('labClear').disabled = true;
+    message.textContent =
+      'Clearing history across the agents…';
+
+    try {
+      const reply = await api('/history/clear', {});
+
+      active = null;
+      stepIndex = 0;
+
+      if ($('trace').open) {
+        $('trace').close();
+      }
+
+      message.textContent =
+        'History cleared: ' +
+        reply.deleted_files +
+        ' stored files removed.';
+    } catch (error) {
+      message.textContent = error.message;
+    } finally {
+      pending = false;
+      await refresh();
+    }
+  };
+})();
+
+</script>
+<!-- END_DEALS_CONTROLS_V2 -->
+<!-- DEALS_DOWNLOAD_FIX -->
+<script>
+(() => {
+  const previousRender = render;
+  render = function () {
+    previousRender();
+    const jobs = state.jobs || [];
+
+    document.querySelectorAll('[data-download]').forEach(button => {
+      const name = button.dataset.download;
+      const job = jobs.find(j =>
+        j.mode === 'download'
+        && j.dataset === name
+        && ['queued', 'running'].includes(j.status)
+      );
+      const loaded =
+        (state.ready[name]?.warmup || 0) > 0
+        && (state.ready[name]?.test || 0) > 0;
+
+      button.disabled =
+        !!job || loaded || !!state.controls?.evaluation;
+
+      button.textContent = job
+        ? (job.status === 'queued' ? 'Queued…' : 'Downloading…')
+        : loaded ? 'Loaded' : '↓ Load / resume';
+
+      button.title = job?.progress || '';
+    });
+  };
+})();
+
+</script>
+<!-- END_DEALS_DOWNLOAD_FIX -->
+<!-- DOWNLOAD_PROGRESS -->
+<script>
+
+(() => {
+  let pending = false;
+  const stop = document.createElement('button');
+  stop.id = 'labStopDownloads';
+  stop.textContent = 'Stop downloads';
+  $('labStop').parentElement.appendChild(stop);
+
+  const current = () => (state.jobs || []).filter(j =>
+    j.mode === 'download'
+    && ['queued', 'running', 'stopping'].includes(j.status)
+  );
+
+  const previous = render;
+  render = function () {
+    previous();
+    const jobs = current();
+    stop.disabled = pending || !jobs.length
+      || jobs.every(j => j.status === 'stopping');
+
+    document.querySelectorAll('[data-download]').forEach(button => {
+      const job = jobs.find(j =>
+        j.dataset === button.dataset.download
+      );
+      if (!job) return;
+
+      button.disabled = true;
+      const d = job.download;
+      button.textContent =
+        job.status === 'stopping' ? 'Stopping…'
+        : job.status === 'queued' ? 'Queued…'
+        : d ? d.completed_pages + '/' + d.total_label + ' pages'
+        : 'Starting…';
+
+      button.title = job.progress || '';
+    });
+  };
+
+  stop.onclick = async () => {
+    if (pending) return;
+    pending = true;
+    stop.disabled = true;
+    try {
+      await api('/datasets/stop', {
+        job_ids: current().map(j => j.id)
+      });
+      $('labControlMessage').textContent =
+        'Stop requested. Cached pages are kept; '
+        + 'the current HTTP request may need to settle.';
+    } catch (e) {
+      $('labControlMessage').textContent = e.message;
+    } finally {
+      pending = false;
+      await refresh();
+    }
+  };
+})();
+
+</script>
+<!-- END_DOWNLOAD_PROGRESS -->
+<!-- LIVE_EVALUATION -->
+<style>
+#live-eval{margin-bottom:20px}
+#live-eval .live-bar{height:8px;background:#edf3f1;border-radius:4px;overflow:hidden;margin:12px 0 0}
+#live-eval .live-bar i{display:block;height:100%;background:var(--green);transition:width .6s}
+#live-eval .live-grid{display:grid;grid-template-columns:90px repeat(4,1fr);gap:6px;padding:16px 20px}
+#live-eval .live-head{font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:var(--sub);align-self:end}
+#live-eval .live-ds{font-weight:700;align-self:center}
+#live-eval .cell{border:1px solid var(--line);border-radius:7px;padding:8px 10px;font-size:11px;min-height:62px}
+#live-eval .cell b{display:block;font-size:17px;margin:2px 0}
+#live-eval .cell.done{background:#eff7f2;border-color:#c9e4d8}
+#live-eval .cell.running{border-color:var(--green);box-shadow:0 0 0 1px var(--green)}
+#live-eval .cell.skipped{background:#fafbfb;color:var(--sub)}
+.pulse{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:5px;animation:livepulse 1.1s infinite}
+@keyframes livepulse{50%{opacity:.2}}
+#live-eval .live-counts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:0 20px 14px}
+#live-eval .live-counts b{display:block;font-size:20px}
+#live-eval td.answer-cell{max-width:320px;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:800px){#live-eval .live-grid{grid-template-columns:70px repeat(2,1fr)}}
+</style>
+<script>
+(() => {
+  const ORDER = ['math', 'bbh', 'mmlu_pro'];
+  const NAMES = {math: 'MATH', bbh: 'BBH', mmlu_pro: 'MMLU-Pro'};
+  const SYSTEMS = {deals: 'DEALS', agentic_rag: 'Agentic RAG'};
+  const STEPS = [
+    ['deals', 'warmup'], ['deals', 'test'],
+    ['agentic_rag', 'warmup'], ['agentic_rag', 'test']
+  ];
+  const PASSES = ['plan', 'execute', 'review'];
+  const ACTIVE = ['queued', 'running', 'stopping'];
+  const KEY = 'dealsLiveSelection';
+  const box = $('live-eval');
+
+  // Remember the requested datasets so the tracker knows the total steps.
+  $('benchmark').addEventListener('click', () => {
+    const value = $('datasets').value;
+    localStorage.setItem(KEY, JSON.stringify({
+      datasets: value === 'all' ? ORDER : [value],
+      at: Date.now()
+    }));
+  }, true);
+
+  const datasetOf = task => String(task.task_type || '').split('.')[0];
+
+  const latestEvaluation = () => (state.jobs || [])
+    .filter(job => job.mode !== 'download'
+      && String(job.id || '').startsWith('lab-'))
+    .sort((a, b) => (a.created_at || 0) - (b.created_at || 0))
+    .pop();
+
+  function planned(job, tasks) {
+    try {
+      const saved = JSON.parse(localStorage.getItem(KEY) || 'null');
+      if (saved && Math.abs(saved.at - job.created_at * 1000) < 20000) {
+        return {datasets: saved.datasets, known: true};
+      }
+    } catch (error) { /* ignore */ }
+    const seen = new Set([
+      ...(job.results || []).map(report => report.dataset),
+      ...tasks.map(datasetOf)
+    ]);
+    return {datasets: ORDER.filter(name => seen.has(name)), known: false};
+  }
+
+  const reportFor = (job, dataset, system, phase) =>
+    (job.results || []).find(report => report.dataset === dataset
+      && report.system === system && report.phase === phase);
+
+  function stepTasks(tasks, dataset, system, phase) {
+    return tasks.filter(task => datasetOf(task) === dataset
+      && task.lab?.system === system && task.lab?.phase === phase);
+  }
+
+  function liveStep(job, tasks, step) {
+    const [dataset, system, phase] = step;
+    const list = stepTasks(tasks, dataset, system, phase);
+    const cases = new Set(list.map(task => task.lab?.case_id)).size || 1;
+    const count = status => list.filter(task => task.status === status).length;
+    const match = /(\d+)\/(\d+) tasks/.exec(job.progress || '');
+    const done = match ? Number(match[1]) : count('completed') + count('failed');
+    const total = match ? Number(match[2]) : cases;
+    let pass = null;
+    let fraction = total ? done / total : 0;
+    if (system === 'agentic_rag') {
+      const index = Math.min(3, Math.max(1, Math.ceil(list.length / cases)));
+      pass = PASSES[index - 1];
+      fraction = (index - 1 + fraction) / 3;
+    }
+    return {
+      list, done, total, pass, fraction,
+      running: count('running'), queued: count('queued'),
+      completed: count('completed'), failed: count('failed')
+    };
+  }
+
+  function agentLine(list) {
+    const agents = {};
+    for (const task of list) {
+      if (task.status === 'running' || task.status === 'queued') {
+        const id = task.current_agent_id || task.agent_id || '?';
+        (agents[id] ||= {busy: 0, done: 0}).busy++;
+      } else {
+        for (const id of new Set(task.executors || [])) {
+          (agents[id] ||= {busy: 0, done: 0}).done++;
+        }
+      }
+    }
+    return Object.keys(agents).sort().map(id =>
+      `<span class="tag">${esc(id)} · ${agents[id].busy} active · ${agents[id].done} done</span>`
+    ).join(' ') || '<span class="muted">No tasks admitted yet</span>';
+  }
+
+  function renderLive() {
+    const job = latestEvaluation();
+    if (!job) {
+      box.hidden = false;
+      box.innerHTML = `
+        <div class="panel-title">
+          <h2>Live evaluation</h2>
+          <p class="small muted" style="margin-top:6px">
+            No evaluation running. Click <b>Run paired evaluation →</b> above —
+            progress, per-step results and live tasks will stream here, and the
+            paired comparison below fills in while the test steps run.
+          </p>
+        </div>`;
+      return;
+    }
+    box.hidden = false;
+
+    const tasks = (state.tasks || []).filter(task => task.lab?.job === job.id);
+    const plan = planned(job, tasks);
+    const active = ACTIVE.includes(job.status);
+    const steps = plan.datasets.flatMap(dataset =>
+      STEPS.map(([system, phase]) => [dataset, system, phase]));
+    const cachedFor = (dataset, system, phase) => phase === 'warmup'
+      && (job.warmups || []).find(item => item.dataset === dataset
+        && item.system === system && item.source === 'cache');
+    const current = active
+      ? steps.find(step => !reportFor(job, ...step) && !cachedFor(...step))
+      : null;
+    const live = current ? liveStep(job, tasks, current) : null;
+    const finished = steps.filter(step =>
+      reportFor(job, ...step) || cachedFor(...step)).length;
+    const overall = steps.length
+      ? Math.min(100, 100 * (finished + (live?.fraction || 0)) / steps.length) : 0;
+
+    const elapsed = Math.max(0, Date.now() / 1000 - (job.created_at || 0));
+    const clock = `${Math.floor(elapsed / 60)}m ${String(Math.floor(elapsed % 60)).padStart(2, '0')}s`;
+    const tag = job.status === 'completed' ? '' : active ? '' : 'orange';
+    const stage = current
+      ? `${NAMES[current[0]]} · ${SYSTEMS[current[1]]} · ${current[2]}`
+        + (live.pass ? ` · ${live.pass} pass` : '')
+      : job.status === 'completed' ? 'All steps finished'
+      : esc(job.error || job.progress || job.status);
+
+    const cells = plan.datasets.map(dataset => `
+      <div class="live-ds">${NAMES[dataset] || esc(dataset)}</div>
+      ${STEPS.map(([system, phase]) => {
+        const cached = cachedFor(dataset, system, phase);
+        if (cached) {
+          return `<div class="cell done">
+            <span class="muted">⚡ cached warmup</span>
+            <b>${fmt(cached.cases)} cases</b>
+            <span class="muted">saved ${esc(new Date(cached.created_at * 1000).toLocaleString())}</span>
+          </div>`;
+        }
+        const report = reportFor(job, dataset, system, phase);
+        if (report) {
+          const m = report.metrics || {};
+          return `<div class="cell done">
+            <span class="muted">✓ ${fmt(m.cases)} cases${m.failed ? ' · ' + m.failed + ' failed' : ''}</span>
+            <b>${pct(m.accuracy)}</b>
+            <span class="muted">${fmt(m.tokens_per_task, 0)} tok/case · ${sec(m.median_latency)}</span>
+          </div>`;
+        }
+        if (current && current[0] === dataset
+            && current[1] === system && current[2] === phase) {
+          return `<div class="cell running">
+            <span><i class="pulse"></i>running${live.pass ? ' · ' + live.pass : ''}</span>
+            <b>${live.done}/${live.total}</b>
+            <span class="muted">${live.running} running · ${live.queued} queued${live.failed ? ' · ' + live.failed + ' failed' : ''}</span>
+          </div>`;
+        }
+        return `<div class="cell skipped"><span>${active ? 'pending' : 'not run'}</span><b>—</b></div>`;
+      }).join('')}
+    `).join('');
+
+    const recent = live ? [
+      ...live.list.filter(task => ACTIVE.includes(task.status)),
+      ...live.list.filter(task => !ACTIVE.includes(task.status)).reverse()
+    ].slice(0, 8) : [];
+
+    box.innerHTML = `
+      <div class="panel-title">
+        <div class="row">
+          <h2>${active ? '<i class="pulse"></i>' : ''}Live evaluation · ${esc(job.id)}</h2>
+          <span class="small muted">
+            <span class="tag ${tag}">${esc(job.status)}</span>
+            ${active ? ' · elapsed ' + clock : ''}
+            · ${finished}/${steps.length || '?'} steps${plan.known ? '' : ' so far'}
+          </span>
+        </div>
+        <p class="small muted" style="margin-top:6px">${stage}</p>
+        <div class="live-bar"><i style="width:${overall.toFixed(1)}%"></i></div>
+      </div>
+      <div class="live-grid">
+        <div></div>
+        ${STEPS.map(([system, phase]) =>
+          `<div class="live-head">${SYSTEMS[system]} · ${phase}</div>`).join('')}
+        ${cells || '<div class="muted" style="grid-column:1/-1">Waiting for the first step…</div>'}
+      </div>
+      ${live ? `
+        <div class="live-counts">
+          <div><span class="small muted">Completed</span><b>${live.completed}</b></div>
+          <div><span class="small muted">Running</span><b>${live.running}</b></div>
+          <div><span class="small muted">Queued</span><b>${live.queued}</b></div>
+          <div><span class="small muted">Failed</span><b>${live.failed}</b></div>
+        </div>
+        <div class="pad" style="padding-top:0">${agentLine(live.list)}</div>
+        <div class="scroll"><table>
+          <thead><tr><th>Case</th><th>Type</th><th>Route</th><th>Status</th><th>Answer</th></tr></thead>
+          <tbody>${recent.map(task => `
+            <tr>
+              <td class="mono">${esc(String(task.lab?.case_id || '').slice(0, 28))}</td>
+              <td>${esc(task.task_type)}</td>
+              <td>${(task.steps || []).map(step => esc(step.agent_id)).join(' → ')
+                || esc(task.current_agent_id || 'queued')}</td>
+              <td><span class="tag ${task.status === 'failed' ? 'orange' : ''}">${esc(task.status)}</span></td>
+              <td class="answer-cell">${esc(task.result?.final_answer || '')}</td>
+            </tr>`).join('') || '<tr><td colspan="5" class="empty">Waiting for tasks…</td></tr>'}
+          </tbody>
+        </table></div>` : ''}
+    `;
+  }
+
+  const previous = render;
+  render = function () {
+    previous();
+    try { renderLive(); } catch (error) { console.error('live evaluation', error); }
+  };
+
+  // Keep the elapsed clock ticking between 2-second state refreshes.
+  setInterval(() => {
+    const job = latestEvaluation();
+    if (job && ACTIVE.includes(job.status)) {
+      try { renderLive(); } catch (error) { /* next refresh retries */ }
+    }
+  }, 1000);
+})();
+</script>
+<!-- END_LIVE_EVALUATION -->
+<!-- LIVE_COMPARISON -->
+<script>
+// Fills the paired comparison card while test steps are still running.
+// Final reports replace live numbers as soon as each step finishes.
+(() => {
+  const ACTIVE = ['queued', 'running', 'stopping'];
+  const DONE = ['completed', 'failed', 'cancelled'];
+  const NAMES = {math: 'MATH', bbh: 'BBH', mmlu_pro: 'MMLU-Pro'};
+  const graded = {};
+  let grading = false;
+  let gradeAvailable = true;
+  let followed = null;
+
+  const datasetOf = task => String(task.task_type || '').split('.')[0];
+  const stageOf = task => {
+    const prompt = task.original_prompt || '';
+    if (prompt.startsWith('Choose one executor')) return 'plan';
+    if (prompt.startsWith('Check this candidate answer')) return 'review';
+    return 'execute';
+  };
+  const isFinalAnswer = task =>
+    task.lab?.system === 'deals' || stageOf(task) === 'review';
+  const median = values => {
+    const sorted = values.filter(Number.isFinite).sort((a, b) => a - b);
+    if (!sorted.length) return null;
+    const middle = sorted.length >> 1;
+    return sorted.length % 2 ? sorted[middle]
+      : (sorted[middle - 1] + sorted[middle]) / 2;
+  };
+  const latestJob = () => (state.jobs || [])
+    .filter(job => job.mode !== 'download'
+      && String(job.id || '').startsWith('lab-'))
+    .sort((a, b) => (a.created_at || 0) - (b.created_at || 0))
+    .pop();
+  const jobTasks = job => (state.tasks || [])
+    .filter(task => task.lab?.job === job.id);
+
+  async function gradePending(job) {
+    if (grading || !gradeAvailable) return;
+    const items = [];
+    for (const task of jobTasks(job)) {
+      if (task.status !== 'completed' || task.task_id in graded
+          || task.lab?.phase !== 'test' || !isFinalAnswer(task)) continue;
+      const answer = task.result?.final_answer;
+      if (typeof answer !== 'string' || !answer.trim()) {
+        graded[task.task_id] = false;
+        continue;
+      }
+      items.push({key: task.task_id, case_id: task.lab.case_id, answer});
+    }
+    if (!items.length) return;
+    grading = true;
+    try {
+      const reply = await api('/live-grade', {items});
+      Object.assign(graded, reply.results || {});
+      comparison();
+    } catch (error) {
+      if (/HTTP 40[45]/.test(error.message)) gradeAvailable = false;
+    } finally {
+      grading = false;
+    }
+  }
+
+  function live(job, dataset, system) {
+    const tasks = jobTasks(job).filter(task => task.lab?.system === system
+      && task.lab?.phase === 'test' && datasetOf(task) === dataset);
+    if (!tasks.length) return null;
+
+    const cases = new Set(tasks.map(task => task.lab.case_id)).size;
+    const finishedLatency = list => list
+      .filter(task => DONE.includes(task.status))
+      .map(task => task.latency_seconds || 0);
+    let finals = tasks;
+    let offset = 0;
+    let stage = null;
+
+    if (system === 'agentic_rag') {
+      const stages = {plan: [], execute: [], review: []};
+      tasks.forEach(task => stages[stageOf(task)].push(task));
+      stage = stages.review.length ? 'review'
+        : stages.execute.length ? 'execute' : 'plan';
+      // Passes run one after another, so a case's latency is
+      // the slowest plan + slowest execute + its own review.
+      offset = Math.max(0, ...finishedLatency(stages.plan))
+        + Math.max(0, ...finishedLatency(stages.execute));
+      finals = stages.review;
+    }
+
+    const finished = finals.filter(task => DONE.includes(task.status));
+    const latency = finished.map(task => offset + (task.latency_seconds || 0));
+    let correct = 0;
+    let checked = 0;
+    for (const task of finished) {
+      if (task.status !== 'completed') { checked++; continue; }
+      const verdict = graded[task.task_id];
+      if (verdict === true || verdict === false) {
+        checked++;
+        if (verdict) correct++;
+      }
+    }
+
+    let tokens = 0;
+    for (const task of tasks) {
+      for (const call of task.calls || []) {
+        const usage = call.usage || {};
+        if (Number.isInteger(usage.input_tokens)
+            && Number.isInteger(usage.output_tokens)) {
+          tokens += usage.input_tokens + usage.output_tokens;
+        }
+      }
+    }
+    const elapsed = latency.length ? Math.max(...latency) : null;
+
+    return {
+      live: true, cases, stage, finished: finished.length,
+      correct, checked,
+      metrics: {
+        accuracy: checked ? correct / checked : null,
+        tokens_per_task: tokens ? tokens / cases : null,
+        median_latency: median(latency),
+        throughput: elapsed ? finished.length / elapsed : null
+      }
+    };
+  }
+
+  function follow(job) {
+    // Switch the tab to the dataset being evaluated whenever it changes.
+    const running = jobTasks(job).find(task => ACTIVE.includes(task.status));
+    const dataset = running && datasetOf(running);
+    if (!dataset || !NAMES[dataset] || followed === job.id + dataset) return;
+    followed = job.id + dataset;
+    selected = dataset;
+    document.querySelectorAll('#tabs [data-dataset]').forEach(button =>
+      button.classList.toggle('selected', button.dataset.dataset === dataset));
+  }
+
+  const original = comparison;
+  comparison = function () {
+    const job = latestJob();
+    if (job && ACTIVE.includes(job.status)) follow(job);
+    original();
+    if (!job) return;
+
+    const dataset = selected;
+    const reportOf = system => (job.results || []).find(report =>
+      report.dataset === dataset && report.system === system
+      && report.phase === 'test');
+    const rows = ['deals', 'agentic_rag'].map(system => {
+      const report = reportOf(system);
+      return report ? {live: false, metrics: report.metrics || {}}
+        : live(job, dataset, system);
+    });
+    // Nothing live for this dataset/job: keep the regular paired view.
+    const running = ACTIVE.includes(job.status);
+    if (!rows.some(row => row?.live) && !running) return;
+
+    gradePending(job);
+
+    $('compare-title').textContent =
+      (NAMES[dataset] || dataset) + ' · test results · live';
+    $('pair-note').textContent = `LIVE · ${job.id} · updates every 2 s · `
+      + (gradeAvailable
+        ? 'accuracy uses the report grader on finished cases'
+        : 'restart the agents to enable live accuracy')
+      + ' · final numbers replace live ones when each step ends';
+
+    const labels = ['DEALS', 'Agentic RAG'];
+    const colors = ['', 'baseline'];
+    const systems = ['deals', 'agentic_rag'];
+    const waiting = index => jobTasks(job).some(task =>
+      datasetOf(task) === dataset && task.lab?.system === systems[index]
+      && task.lab?.phase === 'warmup' && ACTIVE.includes(task.status));
+    const status = (row, index) => !row
+      ? (waiting(index)
+        ? '<span class="tag orange"><i class="pulse" style="width:6px;height:6px"></i>WARMUP RUNNING</span>'
+        : '<span class="tag orange">WAITING</span>')
+      : !row.live ? '<span class="tag">FINAL</span>'
+      : `<span class="tag"><i class="pulse" style="width:6px;height:6px"></i>`
+        + `LIVE ${row.finished}/${row.cases}${row.stage ? ' · ' + row.stage : ''}</span>`;
+    const metrics = [
+      ['Accuracy', 'accuracy', (value, row) => pct(value)
+        + (row?.live && row.checked ? ` <span class="small muted">(${row.correct}/${row.checked})</span>` : '')],
+      ['Tokens / case', 'tokens_per_task', value => fmt(value, 1)],
+      ['Median latency', 'median_latency', value => sec(value)],
+      ['Throughput · tasks / sec', 'throughput', value => fmt(value, 3)]
+    ];
+
+    $('comparison').innerHTML = metrics.map(([name, key, format]) => {
+      const maximum = Math.max(...rows.map(row => row?.metrics[key] || 0), 0.001);
+      return `
+        <div>
+          <h3 style="margin-bottom:13px">${name}</h3>
+          ${rows.map((row, index) => `
+            <div class="row small">
+              <span>${labels[index]} ${status(row, index)}</span>
+              <b>${format(row?.metrics[key], row)}</b>
+            </div>
+            <div class="bar ${colors[index]}">
+              <i style="width:${row?.metrics[key] != null
+                ? 100 * row.metrics[key] / maximum : 0}%"></i>
+            </div>
+          `).join('')}
+        </div>`;
+    }).join('');
+  };
+})();
+</script>
+<!-- END_LIVE_COMPARISON -->
+<!-- WARMUP_CACHE -->
+<script>
+(() => {
+  const NAMES = {math: 'MATH', bbh: 'BBH', mmlu_pro: 'MMLU-Pro'};
+  const SYSTEMS = {deals: 'DEALS', agentic_rag: 'RAG'};
+  let entries = [];
+  let lastJobState = '';
+
+  async function load() {
+    try {
+      entries = (await api('/warmup-cache')).entries || [];
+    } catch (error) {
+      $('warmup-cache-list').textContent =
+        'Cached warmups: unavailable (restart the agents to enable caching)';
+      return;
+    }
+    show();
+  }
+
+  function show() {
+    const warmup = $('warmup-size').value;
+    const groups = {};
+    for (const entry of entries) {
+      const label = NAMES[entry.dataset] || entry.dataset;
+      (groups[label] ||= new Set()).add(
+        entry.warmup_cases + ' (' + SYSTEMS[entry.system] + ')');
+    }
+    const text = Object.entries(groups)
+      .map(([name, sizes]) => name + ': ' + [...sizes].join(', '))
+      .join(' · ');
+    $('warmup-cache-list').textContent = entries.length
+      ? 'Cached warmups — ' + text
+        + '. Runs with a matching warmup size skip straight to test.'
+      : 'No cached warmups yet — the first run per dataset and warmup size '
+        + 'warms up once and caches it.';
+    $('warmup-cache-clear').disabled = !entries.length;
+  }
+
+  $('warmup-cache-clear').onclick = async () => {
+    if (!confirm('Delete all cached warmups? The next run will warm up again.')) return;
+    try {
+      const reply = await api('/warmup-cache/clear', {});
+      $('warmup-cache-list').textContent = 'Deleted ' + reply.deleted + ' cached warmups.';
+      await load();
+    } catch (error) {
+      $('warmup-cache-list').textContent = error.message;
+    }
+  };
+  $('warmup-size').addEventListener('change', show);
+
+  // Reload the list when an evaluation finishes (new warmups get cached).
+  const previous = render;
+  render = function () {
+    previous();
+    const signature = (state.jobs || [])
+      .map(job => job.id + ':' + job.status).join('|');
+    if (signature !== lastJobState) {
+      lastJobState = signature;
+      load();
+    }
+  };
+  load();
+})();
+</script>
+<!-- END_WARMUP_CACHE -->
+</body>
+</html>

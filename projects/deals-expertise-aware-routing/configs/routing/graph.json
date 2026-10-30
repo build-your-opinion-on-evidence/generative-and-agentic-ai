@@ -1,0 +1,14 @@
+{
+  "agent-1": [
+    "agent-2",
+    "agent-3"
+  ],
+  "agent-2": [
+    "agent-1",
+    "agent-3"
+  ],
+  "agent-3": [
+    "agent-1",
+    "agent-2"
+  ]
+}

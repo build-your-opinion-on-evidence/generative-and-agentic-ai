@@ -1,0 +1,2030 @@
+{
+  "kind": "benchmark",
+  "schema_version": 1,
+  "dataset": "math",
+  "system": "deals",
+  "phase": "test",
+  "comparison_group": "lab-e240319d7d",
+  "token_scope": "all attempted planner, execution, split, retrieval-prompt and review calls",
+  "elapsed_seconds": 6.558682124999905,
+  "provenance": "Public dataset samples, seed 17; not the paper's released case IDs",
+  "case_set": "31dd69f4ae14916d22bd23380bcac2ed83ed730878471b9dee5861eb22058b5c",
+  "protocol": {
+    "grader": "conservative normalized exact match",
+    "retriever": "lexical cosine + execution-time factor; not BGE",
+    "profiles": {
+      "agent-1": {
+        "name": "Mathematics",
+        "skills": [
+          "algebra",
+          "geometry",
+          "number theory",
+          "calculation"
+        ],
+        "prompt": "Specialize in mathematics. Check algebra, units, boundary cases and arithmetic before returning the final answer."
+      },
+      "agent-2": {
+        "name": "Reasoning and code",
+        "skills": [
+          "logic",
+          "algorithms",
+          "computer science",
+          "BBH"
+        ],
+        "prompt": "Specialize in logical reasoning and computer science. Track constraints, test counterexamples and check each inference."
+      },
+      "agent-3": {
+        "name": "Knowledge",
+        "skills": [
+          "biology",
+          "history",
+          "law",
+          "MMLU-Pro"
+        ],
+        "prompt": "Specialize in knowledge questions. Compare all options, distinguish facts from assumptions and check the answer format."
+      }
+    },
+    "routing": {
+      "weight": 80,
+      "margin": 1,
+      "hop_limit": 3,
+      "alpha": 1,
+      "beta": 1
+    },
+    "baseline": "central planner, shared warmup retrieval, specialist executor, central reviewer"
+  },
+  "node_evidence": [
+    {
+      "agent_id": "agent-1",
+      "status": "ok",
+      "model": "gpt-5-nano",
+      "role": {
+        "name": "Mathematics",
+        "skills": [
+          "algebra",
+          "geometry",
+          "number theory",
+          "calculation"
+        ],
+        "prompt": "Specialize in mathematics. Check algebra, units, boundary cases and arithmetic before returning the final answer."
+      },
+      "capacity": 2,
+      "types": {
+        "math.algebra": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "math.algebra",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "general": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "general",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.counting_and_probability": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "math.counting_and_probability",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 1
+        },
+        "math.geometry": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "math.geometry",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.intermediate_algebra": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "math.intermediate_algebra",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 1,
+          "failures": 1
+        },
+        "math.number_theory": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "math.number_theory",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.prealgebra": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "math.prealgebra",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.precalculus": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "math.precalculus",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 1
+        },
+        "bbh.boolean_expressions": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.boolean_expressions",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.causal_judgement": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.causal_judgement",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.date_understanding": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.date_understanding",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.disambiguation_qa": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.disambiguation_qa",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.dyck_languages": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.dyck_languages",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.formal_fallacies": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.formal_fallacies",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.geometric_shapes": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.geometric_shapes",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.hyperbaton": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.hyperbaton",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.logical_deduction_three_objects": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.logical_deduction_three_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.logical_deduction_five_objects": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.logical_deduction_five_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.logical_deduction_seven_objects": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.logical_deduction_seven_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.movie_recommendation": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.movie_recommendation",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.multistep_arithmetic_two": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.multistep_arithmetic_two",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.navigate": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.navigate",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.object_counting": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.object_counting",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.penguins_in_a_table": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.penguins_in_a_table",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.reasoning_about_colored_objects": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.reasoning_about_colored_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.ruin_names": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.ruin_names",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.salient_translation_error_detection": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.salient_translation_error_detection",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.snarks": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.snarks",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "mmlu_pro.biology": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "mmlu_pro.biology",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "mmlu_pro.computer_science": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "mmlu_pro.computer_science",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "mmlu_pro.history": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "mmlu_pro.history",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "mmlu_pro.law": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "mmlu_pro.law",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "mmlu_pro.math": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "mmlu_pro.math",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        }
+      },
+      "peaks": {
+        "queued": 3,
+        "in_flight": 2,
+        "backlog": 5
+      },
+      "history": [
+        {
+          "at": 1793322143.935625,
+          "queued": 1,
+          "in_flight": 0,
+          "backlog": 1
+        },
+        {
+          "at": 1793322143.9362938,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322143.936851,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322143.9374652,
+          "queued": 1,
+          "in_flight": 1,
+          "backlog": 2
+        },
+        {
+          "at": 1793322143.938142,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322143.9388149,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322143.939372,
+          "queued": 1,
+          "in_flight": 2,
+          "backlog": 3
+        },
+        {
+          "at": 1793322143.9401531,
+          "queued": 1,
+          "in_flight": 2,
+          "backlog": 3
+        },
+        {
+          "at": 1793322143.940764,
+          "queued": 1,
+          "in_flight": 2,
+          "backlog": 3
+        },
+        {
+          "at": 1793322143.951901,
+          "queued": 1,
+          "in_flight": 2,
+          "backlog": 3
+        },
+        {
+          "at": 1793322143.952283,
+          "queued": 1,
+          "in_flight": 2,
+          "backlog": 3
+        },
+        {
+          "at": 1793322143.955887,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322143.9567099,
+          "queued": 3,
+          "in_flight": 2,
+          "backlog": 5
+        },
+        {
+          "at": 1793322143.994406,
+          "queued": 3,
+          "in_flight": 2,
+          "backlog": 5
+        },
+        {
+          "at": 1793322144.2955232,
+          "queued": 3,
+          "in_flight": 2,
+          "backlog": 5
+        },
+        {
+          "at": 1793322144.597578,
+          "queued": 3,
+          "in_flight": 2,
+          "backlog": 5
+        },
+        {
+          "at": 1793322144.899114,
+          "queued": 3,
+          "in_flight": 2,
+          "backlog": 5
+        },
+        {
+          "at": 1793322145.1999218,
+          "queued": 3,
+          "in_flight": 2,
+          "backlog": 5
+        },
+        {
+          "at": 1793322145.50146,
+          "queued": 3,
+          "in_flight": 2,
+          "backlog": 5
+        },
+        {
+          "at": 1793322145.802912,
+          "queued": 3,
+          "in_flight": 2,
+          "backlog": 5
+        },
+        {
+          "at": 1793322146.102675,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322146.103146,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322146.1045089,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322146.404864,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322146.6083388,
+          "queued": 1,
+          "in_flight": 2,
+          "backlog": 3
+        },
+        {
+          "at": 1793322146.6121018,
+          "queued": 1,
+          "in_flight": 2,
+          "backlog": 3
+        },
+        {
+          "at": 1793322146.707669,
+          "queued": 1,
+          "in_flight": 2,
+          "backlog": 3
+        },
+        {
+          "at": 1793322147.009734,
+          "queued": 1,
+          "in_flight": 2,
+          "backlog": 3
+        },
+        {
+          "at": 1793322147.311311,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322147.31185,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322147.315093,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322147.613373,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322147.75506,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322147.915044,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322148.216104,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322148.5037398,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322148.517705,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322148.819154,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322149.120469,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322149.421567,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322149.723155,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322150.024704,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322150.326047,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        }
+      ],
+      "context": {
+        "experiment": "lab-e240319d7d-math-deals",
+        "phase": "test"
+      },
+      "updates": [
+        {
+          "at": 1793322136.58013,
+          "type": "math.counting_and_probability",
+          "before": [
+            0,
+            0
+          ],
+          "after": [
+            0,
+            1
+          ],
+          "correct": false
+        },
+        {
+          "at": 1793322137.002769,
+          "type": "math.intermediate_algebra",
+          "before": [
+            0,
+            0
+          ],
+          "after": [
+            1,
+            0
+          ],
+          "correct": true
+        },
+        {
+          "at": 1793322137.42656,
+          "type": "math.intermediate_algebra",
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            1
+          ],
+          "correct": false
+        },
+        {
+          "at": 1793322139.053928,
+          "type": "math.precalculus",
+          "before": [
+            0,
+            0
+          ],
+          "after": [
+            0,
+            1
+          ],
+          "correct": false
+        }
+      ],
+      "provider_calls_active": 0,
+      "runtime_jobs": 0
+    },
+    {
+      "agent_id": "agent-2",
+      "status": "ok",
+      "model": "gpt-6-luna",
+      "role": {
+        "name": "Reasoning and code",
+        "skills": [
+          "logic",
+          "algorithms",
+          "computer science",
+          "BBH"
+        ],
+        "prompt": "Specialize in logical reasoning and computer science. Track constraints, test counterexamples and check each inference."
+      },
+      "capacity": 2,
+      "types": {
+        "math.algebra": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "math.algebra",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "general": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "general",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.counting_and_probability": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "math.counting_and_probability",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.geometry": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "math.geometry",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 1
+        },
+        "math.intermediate_algebra": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "math.intermediate_algebra",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 1
+        },
+        "math.number_theory": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "math.number_theory",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.prealgebra": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "math.prealgebra",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.precalculus": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "math.precalculus",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 1,
+          "failures": 1
+        },
+        "bbh.boolean_expressions": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.boolean_expressions",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.causal_judgement": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.causal_judgement",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.date_understanding": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.date_understanding",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.disambiguation_qa": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.disambiguation_qa",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.dyck_languages": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.dyck_languages",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.formal_fallacies": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.formal_fallacies",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.geometric_shapes": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.geometric_shapes",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.hyperbaton": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.hyperbaton",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.logical_deduction_three_objects": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.logical_deduction_three_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.logical_deduction_five_objects": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.logical_deduction_five_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.logical_deduction_seven_objects": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.logical_deduction_seven_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.movie_recommendation": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.movie_recommendation",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.multistep_arithmetic_two": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.multistep_arithmetic_two",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.navigate": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.navigate",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.object_counting": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.object_counting",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.penguins_in_a_table": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.penguins_in_a_table",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.reasoning_about_colored_objects": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.reasoning_about_colored_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.ruin_names": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.ruin_names",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.salient_translation_error_detection": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.salient_translation_error_detection",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.snarks": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.snarks",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "mmlu_pro.biology": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "mmlu_pro.biology",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "mmlu_pro.computer_science": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "mmlu_pro.computer_science",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "mmlu_pro.history": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "mmlu_pro.history",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "mmlu_pro.law": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "mmlu_pro.law",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "mmlu_pro.math": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "mmlu_pro.math",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        }
+      },
+      "peaks": {
+        "queued": 5,
+        "in_flight": 2,
+        "backlog": 7
+      },
+      "history": [
+        {
+          "at": 1793322143.935603,
+          "queued": 1,
+          "in_flight": 0,
+          "backlog": 1
+        },
+        {
+          "at": 1793322143.936272,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322143.936842,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322143.937475,
+          "queued": 1,
+          "in_flight": 1,
+          "backlog": 2
+        },
+        {
+          "at": 1793322143.9381812,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322143.938808,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322143.939403,
+          "queued": 1,
+          "in_flight": 2,
+          "backlog": 3
+        },
+        {
+          "at": 1793322143.940177,
+          "queued": 1,
+          "in_flight": 2,
+          "backlog": 3
+        },
+        {
+          "at": 1793322143.9407911,
+          "queued": 1,
+          "in_flight": 2,
+          "backlog": 3
+        },
+        {
+          "at": 1793322143.941291,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322143.941795,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322143.942454,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322143.9431329,
+          "queued": 3,
+          "in_flight": 2,
+          "backlog": 5
+        },
+        {
+          "at": 1793322143.943827,
+          "queued": 3,
+          "in_flight": 2,
+          "backlog": 5
+        },
+        {
+          "at": 1793322143.944449,
+          "queued": 3,
+          "in_flight": 2,
+          "backlog": 5
+        },
+        {
+          "at": 1793322143.9449751,
+          "queued": 4,
+          "in_flight": 2,
+          "backlog": 6
+        },
+        {
+          "at": 1793322143.9455402,
+          "queued": 4,
+          "in_flight": 2,
+          "backlog": 6
+        },
+        {
+          "at": 1793322143.9459798,
+          "queued": 4,
+          "in_flight": 2,
+          "backlog": 6
+        },
+        {
+          "at": 1793322143.946363,
+          "queued": 5,
+          "in_flight": 2,
+          "backlog": 7
+        },
+        {
+          "at": 1793322143.946814,
+          "queued": 5,
+          "in_flight": 2,
+          "backlog": 7
+        },
+        {
+          "at": 1793322143.947326,
+          "queued": 5,
+          "in_flight": 2,
+          "backlog": 7
+        },
+        {
+          "at": 1793322143.952847,
+          "queued": 5,
+          "in_flight": 2,
+          "backlog": 7
+        },
+        {
+          "at": 1793322143.953537,
+          "queued": 5,
+          "in_flight": 2,
+          "backlog": 7
+        },
+        {
+          "at": 1793322143.953758,
+          "queued": 5,
+          "in_flight": 2,
+          "backlog": 7
+        },
+        {
+          "at": 1793322143.9576771,
+          "queued": 4,
+          "in_flight": 2,
+          "backlog": 6
+        },
+        {
+          "at": 1793322143.9590888,
+          "queued": 4,
+          "in_flight": 2,
+          "backlog": 6
+        },
+        {
+          "at": 1793322143.974116,
+          "queued": 4,
+          "in_flight": 2,
+          "backlog": 6
+        },
+        {
+          "at": 1793322144.2756622,
+          "queued": 4,
+          "in_flight": 2,
+          "backlog": 6
+        },
+        {
+          "at": 1793322144.577183,
+          "queued": 4,
+          "in_flight": 2,
+          "backlog": 6
+        },
+        {
+          "at": 1793322144.8786519,
+          "queued": 4,
+          "in_flight": 2,
+          "backlog": 6
+        },
+        {
+          "at": 1793322145.1797252,
+          "queued": 4,
+          "in_flight": 2,
+          "backlog": 6
+        },
+        {
+          "at": 1793322145.3270772,
+          "queued": 3,
+          "in_flight": 2,
+          "backlog": 5
+        },
+        {
+          "at": 1793322145.329377,
+          "queued": 3,
+          "in_flight": 2,
+          "backlog": 5
+        },
+        {
+          "at": 1793322145.480342,
+          "queued": 3,
+          "in_flight": 2,
+          "backlog": 5
+        },
+        {
+          "at": 1793322145.788379,
+          "queued": 3,
+          "in_flight": 2,
+          "backlog": 5
+        },
+        {
+          "at": 1793322145.962444,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322145.966111,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322146.08943,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322146.391022,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322146.6922472,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322146.9943721,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322147.2928529,
+          "queued": 1,
+          "in_flight": 2,
+          "backlog": 3
+        },
+        {
+          "at": 1793322147.295049,
+          "queued": 1,
+          "in_flight": 2,
+          "backlog": 3
+        },
+        {
+          "at": 1793322147.2969909,
+          "queued": 1,
+          "in_flight": 2,
+          "backlog": 3
+        },
+        {
+          "at": 1793322147.308662,
+          "queued": 1,
+          "in_flight": 2,
+          "backlog": 3
+        },
+        {
+          "at": 1793322147.5968692,
+          "queued": 1,
+          "in_flight": 2,
+          "backlog": 3
+        },
+        {
+          "at": 1793322147.8925571,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322147.8972852,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322147.8982358,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322148.2001972,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322148.488609,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322148.5018759,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322148.803196,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322149.104337,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322149.406378,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322149.708083,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322150.009454,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322150.186563,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322150.3107588,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        }
+      ],
+      "context": {
+        "experiment": "lab-e240319d7d-math-deals",
+        "phase": "test"
+      },
+      "updates": [
+        {
+          "at": 1793322137.422169,
+          "type": "math.precalculus",
+          "before": [
+            0,
+            0
+          ],
+          "after": [
+            1,
+            0
+          ],
+          "correct": true
+        },
+        {
+          "at": 1793322139.051767,
+          "type": "math.geometry",
+          "before": [
+            0,
+            0
+          ],
+          "after": [
+            0,
+            1
+          ],
+          "correct": false
+        },
+        {
+          "at": 1793322139.052835,
+          "type": "math.intermediate_algebra",
+          "before": [
+            0,
+            0
+          ],
+          "after": [
+            0,
+            1
+          ],
+          "correct": false
+        },
+        {
+          "at": 1793322143.915712,
+          "type": "math.precalculus",
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            1
+          ],
+          "correct": false
+        }
+      ],
+      "provider_calls_active": 0,
+      "runtime_jobs": 0
+    },
+    {
+      "agent_id": "agent-3",
+      "status": "ok",
+      "model": "gpt-4o-mini",
+      "role": {
+        "name": "Knowledge",
+        "skills": [
+          "biology",
+          "history",
+          "law",
+          "MMLU-Pro"
+        ],
+        "prompt": "Specialize in knowledge questions. Compare all options, distinguish facts from assumptions and check the answer format."
+      },
+      "capacity": 2,
+      "types": {
+        "math.algebra": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "math.algebra",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 1
+        },
+        "general": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "general",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.counting_and_probability": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "math.counting_and_probability",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.geometry": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "math.geometry",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 1
+        },
+        "math.intermediate_algebra": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "math.intermediate_algebra",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 1
+        },
+        "math.number_theory": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "math.number_theory",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.prealgebra": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "math.prealgebra",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.precalculus": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "math.precalculus",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 1
+        },
+        "bbh.boolean_expressions": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.boolean_expressions",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.causal_judgement": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.causal_judgement",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.date_understanding": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.date_understanding",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.disambiguation_qa": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.disambiguation_qa",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.dyck_languages": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.dyck_languages",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.formal_fallacies": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.formal_fallacies",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.geometric_shapes": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.geometric_shapes",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.hyperbaton": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.hyperbaton",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.logical_deduction_three_objects": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.logical_deduction_three_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.logical_deduction_five_objects": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.logical_deduction_five_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.logical_deduction_seven_objects": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.logical_deduction_seven_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.movie_recommendation": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.movie_recommendation",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.multistep_arithmetic_two": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.multistep_arithmetic_two",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.navigate": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.navigate",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.object_counting": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.object_counting",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.penguins_in_a_table": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.penguins_in_a_table",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.reasoning_about_colored_objects": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.reasoning_about_colored_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.ruin_names": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.ruin_names",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.salient_translation_error_detection": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.salient_translation_error_detection",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.snarks": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.snarks",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "mmlu_pro.biology": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "mmlu_pro.biology",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "mmlu_pro.computer_science": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "mmlu_pro.computer_science",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "mmlu_pro.history": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "mmlu_pro.history",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "mmlu_pro.law": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "mmlu_pro.law",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "mmlu_pro.math": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "mmlu_pro.math",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        }
+      },
+      "peaks": {
+        "queued": 1,
+        "in_flight": 2,
+        "backlog": 2
+      },
+      "history": [
+        {
+          "at": 1793322143.935605,
+          "queued": 1,
+          "in_flight": 0,
+          "backlog": 1
+        },
+        {
+          "at": 1793322143.936275,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322143.936873,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322143.937475,
+          "queued": 1,
+          "in_flight": 1,
+          "backlog": 2
+        },
+        {
+          "at": 1793322143.9381819,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322143.938764,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322143.951253,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322143.951956,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322143.952241,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322143.956956,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322143.972057,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322144.273608,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322144.575179,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322144.8765929,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322145.148983,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322145.177598,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322145.478403,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322145.788102,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322146.089431,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322146.390988,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322146.6923862,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322146.994386,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322147.296461,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322147.5982232,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322147.7515678,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322147.899433,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322148.20123,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322148.5025349,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322148.803016,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322149.1043332,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322149.406368,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322149.7080672,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322150.009449,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322150.3107579,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        }
+      ],
+      "context": {
+        "experiment": "lab-e240319d7d-math-deals",
+        "phase": "test"
+      },
+      "updates": [
+        {
+          "at": 1793322136.582855,
+          "type": "math.algebra",
+          "before": [
+            0,
+            0
+          ],
+          "after": [
+            0,
+            1
+          ],
+          "correct": false
+        },
+        {
+          "at": 1793322136.584845,
+          "type": "math.geometry",
+          "before": [
+            0,
+            0
+          ],
+          "after": [
+            0,
+            1
+          ],
+          "correct": false
+        },
+        {
+          "at": 1793322137.424672,
+          "type": "math.intermediate_algebra",
+          "before": [
+            0,
+            0
+          ],
+          "after": [
+            0,
+            1
+          ],
+          "correct": false
+        },
+        {
+          "at": 1793322143.9136791,
+          "type": "math.precalculus",
+          "before": [
+            0,
+            0
+          ],
+          "after": [
+            0,
+            1
+          ],
+          "correct": false
+        }
+      ],
+      "provider_calls_active": 0,
+      "runtime_jobs": 0
+    }
+  ],
+  "metrics": {
+    "accuracy": 0.25,
+    "tokens": 4648,
+    "tokens_per_task": 387.3333333333333,
+    "median_latency": 3.3573979795000923,
+    "throughput": 1.8296358584385843,
+    "failed": 0,
+    "cases": 12,
+    "forwards": 2
+  }
+}

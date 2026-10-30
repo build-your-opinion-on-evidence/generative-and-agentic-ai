@@ -1,0 +1,22 @@
+{
+  "provider": "openai",
+  "base_url": "https://api.openai.com/v1",
+  "api_key_env": "OPENAI_API_KEY",
+  "agents": [
+    {
+      "agent_id": "agent-1",
+      "model": "gpt-5-nano",
+      "port": 8011
+    },
+    {
+      "agent_id": "agent-2",
+      "model": "gpt-6-luna",
+      "port": 8012
+    },
+    {
+      "agent_id": "agent-3",
+      "model": "gpt-4o-mini",
+      "port": 8013
+    }
+  ]
+}

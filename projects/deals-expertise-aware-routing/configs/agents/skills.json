@@ -1,0 +1,32 @@
+{
+  "agent-1": {
+    "name": "Mathematics",
+    "skills": [
+      "algebra",
+      "geometry",
+      "number theory",
+      "calculation"
+    ],
+    "prompt": "Specialize in mathematics. Check algebra, units, boundary cases and arithmetic before returning the final answer."
+  },
+  "agent-2": {
+    "name": "Reasoning and code",
+    "skills": [
+      "logic",
+      "algorithms",
+      "computer science",
+      "BBH"
+    ],
+    "prompt": "Specialize in logical reasoning and computer science. Track constraints, test counterexamples and check each inference."
+  },
+  "agent-3": {
+    "name": "Knowledge",
+    "skills": [
+      "biology",
+      "history",
+      "law",
+      "MMLU-Pro"
+    ],
+    "prompt": "Specialize in knowledge questions. Compare all options, distinguish facts from assumptions and check the answer format."
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "split_limit": 3,
+  "max_output_tokens": 2048,
+  "timeout_seconds": 90,
+  "models": {
+    "gpt-5-nano": {"reasoning_effort": "minimal"},
+    "gpt-6-luna": {"reasoning_effort": "none"},
+    "gpt-4o-mini": {}
+  }
+}

@@ -1,0 +1,3387 @@
+{
+  "kind": "benchmark",
+  "schema_version": 1,
+  "dataset": "mmlu_pro",
+  "system": "deals",
+  "phase": "test",
+  "comparison_group": "lab-9f3ae1ef52",
+  "token_scope": "all attempted planner, execution, split, retrieval-prompt and review calls",
+  "elapsed_seconds": 86.52604779200192,
+  "provenance": "Public dataset samples, seed 17; not the paper's released case IDs",
+  "case_set": "2cfe4dde1ecf5965ad8a7d63a9e6929735047fdf039998e214ae40e6c7e23a72",
+  "protocol": {
+    "grader": "conservative normalized exact match",
+    "retriever": "lexical cosine + execution-time factor; not BGE",
+    "profiles": {
+      "agent-1": {
+        "name": "Mathematics",
+        "skills": [
+          "algebra",
+          "geometry",
+          "number theory",
+          "calculation"
+        ],
+        "prompt": "Specialize in mathematics. Check algebra, units, boundary cases and arithmetic before returning the final answer."
+      },
+      "agent-2": {
+        "name": "Reasoning and code",
+        "skills": [
+          "logic",
+          "algorithms",
+          "computer science",
+          "BBH"
+        ],
+        "prompt": "Specialize in logical reasoning and computer science. Track constraints, test counterexamples and check each inference."
+      },
+      "agent-3": {
+        "name": "Knowledge",
+        "skills": [
+          "biology",
+          "history",
+          "law",
+          "MMLU-Pro"
+        ],
+        "prompt": "Specialize in knowledge questions. Compare all options, distinguish facts from assumptions and check the answer format."
+      }
+    },
+    "routing": {
+      "weight": 80,
+      "margin": 1,
+      "hop_limit": 3,
+      "alpha": 1,
+      "beta": 1
+    },
+    "baseline": "central planner, shared warmup retrieval, specialist executor, central reviewer"
+  },
+  "node_evidence": [
+    {
+      "agent_id": "agent-1",
+      "status": "ok",
+      "model": "gpt-5-nano",
+      "role": {
+        "name": "Mathematics",
+        "skills": [
+          "algebra",
+          "geometry",
+          "number theory",
+          "calculation"
+        ],
+        "prompt": "Specialize in mathematics. Check algebra, units, boundary cases and arithmetic before returning the final answer."
+      },
+      "capacity": 2,
+      "types": {
+        "math.algebra": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "math.algebra",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "general": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "general",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.counting_and_probability": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "math.counting_and_probability",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.geometry": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "math.geometry",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.intermediate_algebra": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "math.intermediate_algebra",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.number_theory": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "math.number_theory",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.prealgebra": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "math.prealgebra",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.precalculus": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "math.precalculus",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.boolean_expressions": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.boolean_expressions",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.causal_judgement": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.causal_judgement",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.date_understanding": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.date_understanding",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.disambiguation_qa": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.disambiguation_qa",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.dyck_languages": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.dyck_languages",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.formal_fallacies": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.formal_fallacies",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.geometric_shapes": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.geometric_shapes",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.hyperbaton": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.hyperbaton",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.logical_deduction_three_objects": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.logical_deduction_three_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.logical_deduction_five_objects": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.logical_deduction_five_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.logical_deduction_seven_objects": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.logical_deduction_seven_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.movie_recommendation": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.movie_recommendation",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.multistep_arithmetic_two": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.multistep_arithmetic_two",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.navigate": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.navigate",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.object_counting": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.object_counting",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.penguins_in_a_table": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.penguins_in_a_table",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.reasoning_about_colored_objects": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.reasoning_about_colored_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.ruin_names": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.ruin_names",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.salient_translation_error_detection": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.salient_translation_error_detection",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.snarks": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "bbh.snarks",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "mmlu_pro.biology": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "mmlu_pro.biology",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "mmlu_pro.computer_science": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "mmlu_pro.computer_science",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 1
+        },
+        "mmlu_pro.history": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "mmlu_pro.history",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 1
+        },
+        "mmlu_pro.law": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "mmlu_pro.law",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 1
+        },
+        "mmlu_pro.math": {
+          "agent_id": "agent-1",
+          "agent_index": 1,
+          "task_type": "mmlu_pro.math",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        }
+      },
+      "peaks": {
+        "queued": 2,
+        "in_flight": 2,
+        "backlog": 4
+      },
+      "history": [
+        {
+          "at": 1793322658.5770931,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322658.879036,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322659.181112,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322659.483142,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322659.783947,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322660.0848289,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322660.3864582,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322660.688558,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322660.9906151,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322661.292694,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322661.594754,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322661.8968089,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322662.198817,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322662.500843,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322662.802866,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322663.104952,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322663.406925,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322663.708509,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322664.0106082,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322664.311848,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322664.615718,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322664.91727,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322665.2193081,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322665.521322,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322665.822839,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322666.124877,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322666.426531,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322666.72816,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322667.0302138,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322667.332253,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322667.633885,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322667.935905,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322668.2369862,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322668.5385458,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322668.840513,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322669.142417,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322669.444418,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322669.74639,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322670.047932,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322670.349258,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322670.650579,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322670.951981,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322671.252853,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322671.554782,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322671.856906,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322672.1589708,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322672.460501,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322672.762547,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322673.064863,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322673.366952,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322673.669079,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322673.971173,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322674.3061929,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322674.608265,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322674.909677,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322675.211189,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322675.513171,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322675.8151639,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322676.116833,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322676.418533,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322676.7202911,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322677.0222652,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322677.324339,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322677.626452,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322677.928464,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322678.2327092,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322678.5347798,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322678.8368661,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322679.1378298,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322679.439958,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322679.7414348,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322680.042824,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322680.34407,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322680.646015,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322680.9481149,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322681.2490869,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322681.550441,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322681.8523269,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322682.153674,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322682.455317,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322682.757395,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322683.059374,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322683.361286,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322683.6631591,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322683.965323,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322684.267423,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322684.569531,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322684.870864,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322685.172388,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322685.474445,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322685.776478,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322686.078122,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322686.133877,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322686.379384,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322686.6811242,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322686.982723,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322687.2848792,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322687.586856,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322687.888868,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322688.190303,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322688.492373,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322688.793698,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322689.0815182,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322689.0950432,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322689.3970828,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322689.698655,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322689.999937,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322690.301696,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322690.603106,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322690.905195,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322691.1686661,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322691.207233,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322691.50854,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322691.8105202,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322692.1116438,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322692.4130418,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322692.714923,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322693.016622,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322693.31824,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322693.619802,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        }
+      ],
+      "context": {
+        "experiment": "lab-9f3ae1ef52-mmlu_pro-deals",
+        "phase": "test"
+      },
+      "updates": [
+        {
+          "at": 1793322530.480352,
+          "type": "mmlu_pro.computer_science",
+          "before": [
+            0,
+            0
+          ],
+          "after": [
+            0,
+            1
+          ],
+          "correct": false
+        },
+        {
+          "at": 1793322530.905654,
+          "type": "mmlu_pro.history",
+          "before": [
+            0,
+            0
+          ],
+          "after": [
+            0,
+            1
+          ],
+          "correct": false
+        },
+        {
+          "at": 1793322532.570202,
+          "type": "mmlu_pro.law",
+          "before": [
+            0,
+            0
+          ],
+          "after": [
+            0,
+            1
+          ],
+          "correct": false
+        }
+      ],
+      "provider_calls_active": 0,
+      "runtime_jobs": 0
+    },
+    {
+      "agent_id": "agent-2",
+      "status": "ok",
+      "model": "gpt-6-luna",
+      "role": {
+        "name": "Reasoning and code",
+        "skills": [
+          "logic",
+          "algorithms",
+          "computer science",
+          "BBH"
+        ],
+        "prompt": "Specialize in logical reasoning and computer science. Track constraints, test counterexamples and check each inference."
+      },
+      "capacity": 2,
+      "types": {
+        "math.algebra": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "math.algebra",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "general": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "general",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.counting_and_probability": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "math.counting_and_probability",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.geometry": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "math.geometry",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.intermediate_algebra": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "math.intermediate_algebra",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.number_theory": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "math.number_theory",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.prealgebra": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "math.prealgebra",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.precalculus": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "math.precalculus",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.boolean_expressions": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.boolean_expressions",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.causal_judgement": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.causal_judgement",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.date_understanding": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.date_understanding",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.disambiguation_qa": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.disambiguation_qa",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.dyck_languages": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.dyck_languages",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.formal_fallacies": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.formal_fallacies",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.geometric_shapes": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.geometric_shapes",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.hyperbaton": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.hyperbaton",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.logical_deduction_three_objects": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.logical_deduction_three_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.logical_deduction_five_objects": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.logical_deduction_five_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.logical_deduction_seven_objects": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.logical_deduction_seven_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.movie_recommendation": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.movie_recommendation",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.multistep_arithmetic_two": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.multistep_arithmetic_two",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.navigate": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.navigate",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.object_counting": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.object_counting",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.penguins_in_a_table": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.penguins_in_a_table",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.reasoning_about_colored_objects": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.reasoning_about_colored_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.ruin_names": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.ruin_names",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.salient_translation_error_detection": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.salient_translation_error_detection",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.snarks": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "bbh.snarks",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "mmlu_pro.biology": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "mmlu_pro.biology",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "mmlu_pro.computer_science": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "mmlu_pro.computer_science",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 1,
+          "failures": 1
+        },
+        "mmlu_pro.history": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "mmlu_pro.history",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 1,
+          "failures": 2
+        },
+        "mmlu_pro.law": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "mmlu_pro.law",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 1,
+          "failures": 0
+        },
+        "mmlu_pro.math": {
+          "agent_id": "agent-2",
+          "agent_index": 2,
+          "task_type": "mmlu_pro.math",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 1,
+          "failures": 0
+        }
+      },
+      "peaks": {
+        "queued": 10,
+        "in_flight": 2,
+        "backlog": 12
+      },
+      "history": [
+        {
+          "at": 1793322662.6637828,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322662.964884,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322663.266958,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322663.5690382,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322663.8711,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322664.1731899,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322664.47531,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322664.7767081,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322665.07874,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322665.380764,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322665.682827,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322665.9839349,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322666.284224,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322666.5863528,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322666.887664,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322667.1897442,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322667.4918778,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322667.794004,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322668.0958028,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322668.39726,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322668.699328,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322669.001407,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322669.303498,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322669.605532,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322669.906987,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322670.209019,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322670.511063,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322670.812721,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322671.114757,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322671.41671,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322671.718343,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322672.020443,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322672.321701,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322672.62341,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322672.9254742,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322673.227533,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322673.5295339,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322673.831279,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322674.13294,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322674.4346519,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322674.735788,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322675.037921,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322675.339898,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322675.641948,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322675.943768,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322676.245174,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322676.547199,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322676.8492,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322677.150555,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322677.452522,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322677.754352,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322678.056336,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322678.357665,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322678.659283,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322678.9612422,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322679.263115,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322679.5648,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322679.865553,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322680.166225,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322680.4683268,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322680.770036,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322681.072099,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322681.374143,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322681.6755798,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322681.9767911,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322682.27745,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322682.579068,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322682.880735,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322683.182368,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322683.483996,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322683.786081,
+          "queued": 7,
+          "in_flight": 2,
+          "backlog": 9
+        },
+        {
+          "at": 1793322683.892224,
+          "queued": 6,
+          "in_flight": 2,
+          "backlog": 8
+        },
+        {
+          "at": 1793322683.896065,
+          "queued": 6,
+          "in_flight": 2,
+          "backlog": 8
+        },
+        {
+          "at": 1793322684.0877938,
+          "queued": 6,
+          "in_flight": 2,
+          "backlog": 8
+        },
+        {
+          "at": 1793322684.3891132,
+          "queued": 6,
+          "in_flight": 2,
+          "backlog": 8
+        },
+        {
+          "at": 1793322684.691133,
+          "queued": 6,
+          "in_flight": 2,
+          "backlog": 8
+        },
+        {
+          "at": 1793322684.993149,
+          "queued": 6,
+          "in_flight": 2,
+          "backlog": 8
+        },
+        {
+          "at": 1793322685.294473,
+          "queued": 6,
+          "in_flight": 2,
+          "backlog": 8
+        },
+        {
+          "at": 1793322685.596528,
+          "queued": 6,
+          "in_flight": 2,
+          "backlog": 8
+        },
+        {
+          "at": 1793322685.898085,
+          "queued": 6,
+          "in_flight": 2,
+          "backlog": 8
+        },
+        {
+          "at": 1793322686.13665,
+          "queued": 5,
+          "in_flight": 2,
+          "backlog": 7
+        },
+        {
+          "at": 1793322686.140071,
+          "queued": 5,
+          "in_flight": 2,
+          "backlog": 7
+        },
+        {
+          "at": 1793322686.199641,
+          "queued": 5,
+          "in_flight": 2,
+          "backlog": 7
+        },
+        {
+          "at": 1793322686.5016792,
+          "queued": 5,
+          "in_flight": 2,
+          "backlog": 7
+        },
+        {
+          "at": 1793322686.8035278,
+          "queued": 5,
+          "in_flight": 2,
+          "backlog": 7
+        },
+        {
+          "at": 1793322687.1053739,
+          "queued": 5,
+          "in_flight": 2,
+          "backlog": 7
+        },
+        {
+          "at": 1793322687.335453,
+          "queued": 4,
+          "in_flight": 2,
+          "backlog": 6
+        },
+        {
+          "at": 1793322687.3388622,
+          "queued": 4,
+          "in_flight": 2,
+          "backlog": 6
+        },
+        {
+          "at": 1793322687.4061282,
+          "queued": 4,
+          "in_flight": 2,
+          "backlog": 6
+        },
+        {
+          "at": 1793322687.706733,
+          "queued": 4,
+          "in_flight": 2,
+          "backlog": 6
+        },
+        {
+          "at": 1793322688.008286,
+          "queued": 4,
+          "in_flight": 2,
+          "backlog": 6
+        },
+        {
+          "at": 1793322688.309584,
+          "queued": 4,
+          "in_flight": 2,
+          "backlog": 6
+        },
+        {
+          "at": 1793322688.6116748,
+          "queued": 4,
+          "in_flight": 2,
+          "backlog": 6
+        },
+        {
+          "at": 1793322688.650199,
+          "queued": 3,
+          "in_flight": 2,
+          "backlog": 5
+        },
+        {
+          "at": 1793322688.654294,
+          "queued": 3,
+          "in_flight": 2,
+          "backlog": 5
+        },
+        {
+          "at": 1793322688.913134,
+          "queued": 3,
+          "in_flight": 2,
+          "backlog": 5
+        },
+        {
+          "at": 1793322689.085164,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322689.08914,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322689.214964,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322689.516995,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322689.8182578,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322690.1198862,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322690.42121,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322690.7225542,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322691.0245602,
+          "queued": 2,
+          "in_flight": 2,
+          "backlog": 4
+        },
+        {
+          "at": 1793322691.1716359,
+          "queued": 1,
+          "in_flight": 2,
+          "backlog": 3
+        },
+        {
+          "at": 1793322691.1746051,
+          "queued": 1,
+          "in_flight": 2,
+          "backlog": 3
+        },
+        {
+          "at": 1793322691.2785978,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322691.282633,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322691.32622,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322691.627008,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322691.928561,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322692.229865,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322692.531927,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322692.833295,
+          "queued": 0,
+          "in_flight": 2,
+          "backlog": 2
+        },
+        {
+          "at": 1793322693.1207411,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322693.134999,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322693.437035,
+          "queued": 0,
+          "in_flight": 1,
+          "backlog": 1
+        },
+        {
+          "at": 1793322693.52385,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322693.739126,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        }
+      ],
+      "context": {
+        "experiment": "lab-9f3ae1ef52-mmlu_pro-deals",
+        "phase": "test"
+      },
+      "updates": [
+        {
+          "at": 1793322530.902404,
+          "type": "mmlu_pro.math",
+          "before": [
+            0,
+            0
+          ],
+          "after": [
+            1,
+            0
+          ],
+          "correct": true
+        },
+        {
+          "at": 1793322532.150303,
+          "type": "mmlu_pro.history",
+          "before": [
+            0,
+            0
+          ],
+          "after": [
+            0,
+            1
+          ],
+          "correct": false
+        },
+        {
+          "at": 1793322533.791774,
+          "type": "mmlu_pro.computer_science",
+          "before": [
+            0,
+            0
+          ],
+          "after": [
+            1,
+            0
+          ],
+          "correct": true
+        },
+        {
+          "at": 1793322535.018991,
+          "type": "mmlu_pro.history",
+          "before": [
+            0,
+            1
+          ],
+          "after": [
+            1,
+            1
+          ],
+          "correct": true
+        },
+        {
+          "at": 1793322536.646806,
+          "type": "mmlu_pro.law",
+          "before": [
+            0,
+            0
+          ],
+          "after": [
+            1,
+            0
+          ],
+          "correct": true
+        },
+        {
+          "at": 1793322538.6822212,
+          "type": "mmlu_pro.history",
+          "before": [
+            1,
+            1
+          ],
+          "after": [
+            1,
+            2
+          ],
+          "correct": false
+        },
+        {
+          "at": 1793322607.271876,
+          "type": "mmlu_pro.computer_science",
+          "before": [
+            1,
+            0
+          ],
+          "after": [
+            1,
+            1
+          ],
+          "correct": false
+        }
+      ],
+      "provider_calls_active": 0,
+      "runtime_jobs": 0
+    },
+    {
+      "agent_id": "agent-3",
+      "status": "ok",
+      "model": "gpt-4o-mini",
+      "role": {
+        "name": "Knowledge",
+        "skills": [
+          "biology",
+          "history",
+          "law",
+          "MMLU-Pro"
+        ],
+        "prompt": "Specialize in knowledge questions. Compare all options, distinguish facts from assumptions and check the answer format."
+      },
+      "capacity": 2,
+      "types": {
+        "math.algebra": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "math.algebra",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "general": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "general",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.counting_and_probability": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "math.counting_and_probability",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.geometry": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "math.geometry",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.intermediate_algebra": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "math.intermediate_algebra",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.number_theory": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "math.number_theory",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.prealgebra": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "math.prealgebra",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "math.precalculus": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "math.precalculus",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.boolean_expressions": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.boolean_expressions",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.causal_judgement": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.causal_judgement",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.date_understanding": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.date_understanding",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.disambiguation_qa": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.disambiguation_qa",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.dyck_languages": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.dyck_languages",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.formal_fallacies": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.formal_fallacies",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.geometric_shapes": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.geometric_shapes",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.hyperbaton": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.hyperbaton",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.logical_deduction_three_objects": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.logical_deduction_three_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.logical_deduction_five_objects": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.logical_deduction_five_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.logical_deduction_seven_objects": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.logical_deduction_seven_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.movie_recommendation": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.movie_recommendation",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.multistep_arithmetic_two": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.multistep_arithmetic_two",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.navigate": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.navigate",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.object_counting": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.object_counting",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.penguins_in_a_table": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.penguins_in_a_table",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.reasoning_about_colored_objects": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.reasoning_about_colored_objects",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.ruin_names": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.ruin_names",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.salient_translation_error_detection": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.salient_translation_error_detection",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "bbh.snarks": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "bbh.snarks",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "mmlu_pro.biology": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "mmlu_pro.biology",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "mmlu_pro.computer_science": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "mmlu_pro.computer_science",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 1
+        },
+        "mmlu_pro.history": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "mmlu_pro.history",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 2
+        },
+        "mmlu_pro.law": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "mmlu_pro.law",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        },
+        "mmlu_pro.math": {
+          "agent_id": "agent-3",
+          "agent_index": 3,
+          "task_type": "mmlu_pro.math",
+          "queued": 0,
+          "in_flight": 0,
+          "successes": 0,
+          "failures": 0
+        }
+      },
+      "peaks": {
+        "queued": 2,
+        "in_flight": 2,
+        "backlog": 4
+      },
+      "history": [
+        {
+          "at": 1793322658.740887,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322659.042005,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322659.343068,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322659.645226,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322659.946928,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322660.248333,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322660.550442,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322660.8524952,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322661.154612,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322661.4566631,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322661.758653,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322662.060705,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322662.362134,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322662.6637802,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322662.9661682,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322663.2682,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322663.5702882,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322663.872344,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322664.174444,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322664.47606,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322664.77743,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322665.078733,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322665.3807518,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322665.682821,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322665.984846,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322666.286098,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322666.588143,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322666.890211,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322667.192241,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322667.494337,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322667.796439,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322668.098496,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322668.399922,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322668.70191,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322669.003192,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322669.305195,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322669.607141,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322669.9085891,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322670.2106292,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322670.512446,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322670.814063,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322671.116085,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322671.418138,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322671.719854,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322672.021906,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322672.323155,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322672.625195,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322672.9272661,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322673.229353,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322673.530574,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322673.831403,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322674.132939,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322674.434648,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322674.7367208,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322675.038831,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322675.340769,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322675.642723,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322675.943766,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322676.24518,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322676.547194,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322676.849188,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322677.150532,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322677.452497,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322677.754344,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322678.056323,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322678.357664,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322678.65929,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322678.961248,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322679.262773,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322679.564872,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322679.8661592,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322680.1675498,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322680.468766,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322680.769724,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322681.071053,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322681.373132,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322681.67518,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322681.9761071,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322682.277003,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322682.579092,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322682.880733,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322683.182365,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322683.484075,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322683.786112,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322684.087795,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322684.389109,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322684.691123,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322684.993143,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322685.294463,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322685.596519,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322685.89809,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322686.199637,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322686.501678,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322686.803533,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322687.105371,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322687.4068851,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322687.7074409,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322688.008967,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322688.3102999,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322688.6116118,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322688.6447518,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322688.913134,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322689.214956,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322689.516999,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322689.818256,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322690.11988,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322690.421212,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322690.72256,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322691.024189,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322691.3262851,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322691.627852,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322691.929348,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322692.230633,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322692.532683,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322692.8332958,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322693.117646,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322693.134999,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322693.437093,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322693.520763,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        },
+        {
+          "at": 1793322693.7391412,
+          "queued": 0,
+          "in_flight": 0,
+          "backlog": 0
+        }
+      ],
+      "context": {
+        "experiment": "lab-9f3ae1ef52-mmlu_pro-deals",
+        "phase": "test"
+      },
+      "updates": [
+        {
+          "at": 1793322530.481896,
+          "type": "mmlu_pro.computer_science",
+          "before": [
+            0,
+            0
+          ],
+          "after": [
+            0,
+            1
+          ],
+          "correct": false
+        },
+        {
+          "at": 1793322532.5663402,
+          "type": "mmlu_pro.history",
+          "before": [
+            0,
+            0
+          ],
+          "after": [
+            0,
+            1
+          ],
+          "correct": false
+        },
+        {
+          "at": 1793322538.6788852,
+          "type": "mmlu_pro.history",
+          "before": [
+            0,
+            1
+          ],
+          "after": [
+            0,
+            2
+          ],
+          "correct": false
+        }
+      ],
+      "provider_calls_active": 0,
+      "runtime_jobs": 0
+    }
+  ],
+  "metrics": {
+    "accuracy": 0.5833333333333334,
+    "tokens": 10466,
+    "tokens_per_task": 872.1666666666666,
+    "median_latency": 80.68160812499991,
+    "throughput": 0.13868656093996734,
+    "failed": 0,
+    "cases": 12,
+    "forwards": 11
+  }
+}

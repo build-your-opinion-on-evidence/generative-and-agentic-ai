@@ -10,6 +10,7 @@ Projects live under `projects/`, with one directory per research project.
 
 - [Enterprise Agentic Orchestration](projects/enterprise-agentic-orchestration/README.md): imported implementation snapshot with Airflow, Kafka, and agent services. See [source provenance](projects/enterprise-agentic-orchestration/IMPORT.md).
 - [Queen CBE Platform](projects/queen-cbe-platform/README.md): imported local RAG prototype with FAISS, Ollama, FastAPI/JWT, and Airflow. See [source provenance and validation limits](projects/queen-cbe-platform/IMPORT.md).
+- [DEALS Expertise-Aware Routing](projects/deals-expertise-aware-routing/README.md): decentralized backlog- and quality-aware routing across three LLM agents versus a centralized agentic-RAG baseline on MATH, BBH and MMLU-Pro, with a live lab UI, warmup cache and pilot benchmarks.
 
 Start by copying [the project template](projects/_template/README.md) into `projects/<project-id>-<short-name>/`.
 

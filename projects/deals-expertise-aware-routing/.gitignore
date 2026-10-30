@@ -1,0 +1,35 @@
+# Python environments and generated files
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Credentials
+.env
+.env.*
+!.env.example
+
+# Frontend dependencies and builds
+node_modules/
+dist/
+build/
+coverage/
+
+# Local runtime data and experiment outputs
+.runtime/
+outputs/
+*.log
+
+# Editor and operating system
+.DS_Store
+.idea/
+
+# Downloaded benchmark data and local caches (re-create from the lab UI)
+data/lab/
+*.sqlite3
